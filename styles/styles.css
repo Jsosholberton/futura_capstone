@@ -1,0 +1,17 @@
+/* styles.css */
+my-react-view {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    h1 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #007bff;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+}
