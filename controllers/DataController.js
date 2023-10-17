@@ -16,25 +16,25 @@ class DataController {
         page_id: id,
       });
 
-      if (lastData.properties.Transcripcion.rich_text[0]) {
-        const transcripcion =
-          lastData.properties.Transcripcion.rich_text[0].text.content;
-        const data = DataController.processData(transcripcion);
+      // if (lastData.properties.Transcripcion.rich_text[0]) {
+      //   const transcripcion =
+      //     lastData.properties.Transcripcion.rich_text[0].text.content;
+        const data = DataController.processData();//transcripcion);
         const newData = await notion.pages.update({
           page_id: id,
           properties: data,
         });
         res.render("MyReactView", { newData });
-      } else {
-        res.status(500).send("No hay transcripcion");
-      }
+      // } else {
+      //   res.status(500).send("No hay transcripcion");
+      // }
     } catch (error) {
       res.status(500).send("Error");
       console.error(error);
     }
   }
 
-  static processData(transcripcion) {
+  static processData() {//transcripcion) {
     // openai.completions
     //   .create({
     //     model: "text-davinci-002",
@@ -46,7 +46,7 @@ class DataController {
     //     const transcripcionArray = [respuesta];
 
         const resultado = {
-          Skills: {
+          "Que lo hace único?": {
             rich_text: [
               {
                 text: {
@@ -55,7 +55,7 @@ class DataController {
               },
             ],
           },
-          Experience: {
+          "Tech Stack": {
             rich_text: [
               {
                 text: {
@@ -64,7 +64,7 @@ class DataController {
               },
             ],
           },
-          summary: {
+          "Experiencia Laboral": {
             rich_text: [
               {
                 text: {
@@ -73,6 +73,51 @@ class DataController {
               },
             ],
           },
+          "Educación": {
+            rich_text: [
+              {
+                text: {
+                  content: "New Summary",//transcripcionArray[0],
+                },
+              },
+            ],
+          },
+          "Compañía": {
+            rich_text: [
+              {
+                text: {
+                  content: "New Summary",//transcripcionArray[0],
+                },
+              },
+            ],
+          },
+          "Empresa": {
+            rich_text: [
+              {
+                text: {
+                  content: "New Summary",//transcripcionArray[0],
+                },
+              },
+            ],
+          },
+          "Empresa1": {
+            rich_text: [
+              {
+                text: {
+                  content: "New Summary",//transcripcionArray[0],
+                },
+              },
+            ],
+          },
+          // "Candidate Agreement": {
+          //   rich_text: [
+          //     {
+          //       text: {
+          //         content: "New Summary",//transcripcionArray[0],
+          //       },
+          //     },
+          //   ],
+          // },
         };
         // console.log(resultado);
         return resultado;

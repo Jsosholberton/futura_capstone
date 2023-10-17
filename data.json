@@ -3,9 +3,9 @@
   "results": [
     {
       "object": "page",
-      "id": "1e044c51-36d0-455d-b74b-975bf713637f",
-      "created_time": "2023-10-13T03:41:00.000Z",
-      "last_edited_time": "2023-10-13T12:52:00.000Z",
+      "id": "42fb5ee3-108e-4c74-ad52-b3f6dfa7072b",
+      "created_time": "2023-10-17T14:23:00.000Z",
+      "last_edited_time": "2023-10-17T14:23:00.000Z",
       "created_by": {
         "object": "user",
         "id": "6eb8d368-0f3a-4341-b198-e7d03ac3323e"
@@ -22,27 +22,529 @@
       },
       "archived": false,
       "properties": {
-        "Experience": {
-          "id": "Mb%5EC",
+        "Number": {
+          "id": "Enf%7D",
+          "type": "number",
+          "number": null
+        },
+        "País": {
+          "id": "HZGr",
           "type": "rich_text",
           "rich_text": []
         },
-        "summary": {
-          "id": "kVAi",
+        "Date": {
+          "id": "Hprt",
+          "type": "formula",
+          "formula": {
+            "type": "date",
+            "date": {
+              "start": "2023-10-17T15:05:00.000+00:00",
+              "end": null,
+              "time_zone": null
+            }
+          }
+        },
+        "Estado": {
+          "id": "JZmm",
+          "type": "status",
+          "status": {
+            "id": "b7a89914-b388-44aa-b0a2-f974b86bbbac",
+            "name": "Not started",
+            "color": "default"
+          }
+        },
+        "Que lo hace único?": {
+          "id": "M%5C%3Fk",
           "type": "rich_text",
           "rich_text": []
         },
-        "Skills": {
-          "id": "uk%60W",
+        "Notas Llamada": {
+          "id": "O%7B%7D%7D",
           "type": "rich_text",
           "rich_text": []
         },
-        "Url": {
+        "Tech Stack": {
+          "id": "Ps%5BL",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Process": {
+          "id": "V%5DyN",
+          "type": "formula",
+          "formula": {
+            "type": "string",
+            "string": "🚀 Process 🚀"
+          }
+        },
+        "Correo electrónico": {
+          "id": "bm%7CO",
+          "type": "email",
+          "email": null
+        },
+        "Experiencia Laboral": {
+          "id": "i%5DY%3D",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Educación": {
+          "id": "wYXj",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Compañía": {
+          "id": "zD%3BK",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Empresa": {
+          "id": "z_bE",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Prioridad": {
+          "id": "zj%7C~",
+          "type": "select",
+          "select": null
+        },
+        "Transcripcion": {
           "id": "%7BCga",
+          "type": "files",
+          "files": []
+        },
+        "Empresa1": {
+          "id": "%7BJ%7CP",
           "type": "rich_text",
           "rich_text": []
         },
-        "Name": {
+        "Candidate Agreement": {
+          "id": "%7BcG%7B",
+          "type": "files",
+          "files": []
+        },
+        "Nombre": {
+          "id": "title",
+          "type": "title",
+          "title": []
+        }
+      },
+      "url": "https://www.notion.so/42fb5ee3108e4c74ad52b3f6dfa7072b",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "927e4f5c-a3cc-4425-a299-106c17269a00",
+      "created_time": "2023-10-16T16:48:00.000Z",
+      "last_edited_time": "2023-10-16T17:08:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "6eb8d368-0f3a-4341-b198-e7d03ac3323e"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "6eb8d368-0f3a-4341-b198-e7d03ac3323e"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "database_id",
+        "database_id": "72c9c0f4-2b41-49b6-af29-530efd8b6d13"
+      },
+      "archived": false,
+      "properties": {
+        "Number": {
+          "id": "Enf%7D",
+          "type": "number",
+          "number": null
+        },
+        "País": {
+          "id": "HZGr",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Date": {
+          "id": "Hprt",
+          "type": "formula",
+          "formula": {
+            "type": "date",
+            "date": {
+              "start": "2023-10-17T15:05:00.000+00:00",
+              "end": null,
+              "time_zone": null
+            }
+          }
+        },
+        "Estado": {
+          "id": "JZmm",
+          "type": "status",
+          "status": {
+            "id": "b7a89914-b388-44aa-b0a2-f974b86bbbac",
+            "name": "Not started",
+            "color": "default"
+          }
+        },
+        "Que lo hace único?": {
+          "id": "M%5C%3Fk",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Notas Llamada": {
+          "id": "O%7B%7D%7D",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Tech Stack": {
+          "id": "Ps%5BL",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Process": {
+          "id": "V%5DyN",
+          "type": "formula",
+          "formula": {
+            "type": "string",
+            "string": "🚀 Process 🚀"
+          }
+        },
+        "Correo electrónico": {
+          "id": "bm%7CO",
+          "type": "email",
+          "email": null
+        },
+        "Experiencia Laboral": {
+          "id": "i%5DY%3D",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Educación": {
+          "id": "wYXj",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Compañía": {
+          "id": "zD%3BK",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Empresa": {
+          "id": "z_bE",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Prioridad": {
+          "id": "zj%7C~",
+          "type": "select",
+          "select": null
+        },
+        "Transcripcion": {
+          "id": "%7BCga",
+          "type": "files",
+          "files": []
+        },
+        "Empresa1": {
+          "id": "%7BJ%7CP",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Candidate Agreement": {
+          "id": "%7BcG%7B",
+          "type": "files",
+          "files": []
+        },
+        "Nombre": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Pedro",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Pedro",
+              "href": null
+            }
+          ]
+        }
+      },
+      "url": "https://www.notion.so/Pedro-927e4f5ca3cc4425a299106c17269a00",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "4aadd307-be21-45c8-ae11-8f01c4b8e575",
+      "created_time": "2023-10-15T15:02:00.000Z",
+      "last_edited_time": "2023-10-17T14:32:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "6eb8d368-0f3a-4341-b198-e7d03ac3323e"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "6eb8d368-0f3a-4341-b198-e7d03ac3323e"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "database_id",
+        "database_id": "72c9c0f4-2b41-49b6-af29-530efd8b6d13"
+      },
+      "archived": false,
+      "properties": {
+        "Number": {
+          "id": "Enf%7D",
+          "type": "number",
+          "number": null
+        },
+        "País": {
+          "id": "HZGr",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Date": {
+          "id": "Hprt",
+          "type": "formula",
+          "formula": {
+            "type": "date",
+            "date": {
+              "start": "2023-10-17T15:05:00.000+00:00",
+              "end": null,
+              "time_zone": null
+            }
+          }
+        },
+        "Estado": {
+          "id": "JZmm",
+          "type": "status",
+          "status": {
+            "id": "b7a89914-b388-44aa-b0a2-f974b86bbbac",
+            "name": "Not started",
+            "color": "default"
+          }
+        },
+        "Que lo hace único?": {
+          "id": "M%5C%3Fk",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Notas Llamada": {
+          "id": "O%7B%7D%7D",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Tech Stack": {
+          "id": "Ps%5BL",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Process": {
+          "id": "V%5DyN",
+          "type": "formula",
+          "formula": {
+            "type": "string",
+            "string": "🚀 Process 🚀"
+          }
+        },
+        "Correo electrónico": {
+          "id": "bm%7CO",
+          "type": "email",
+          "email": null
+        },
+        "Experiencia Laboral": {
+          "id": "i%5DY%3D",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Educación": {
+          "id": "wYXj",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Compañía": {
+          "id": "zD%3BK",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Empresa": {
+          "id": "z_bE",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Prioridad": {
+          "id": "zj%7C~",
+          "type": "select",
+          "select": null
+        },
+        "Transcripcion": {
+          "id": "%7BCga",
+          "type": "files",
+          "files": []
+        },
+        "Empresa1": {
+          "id": "%7BJ%7CP",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Candidate Agreement": {
+          "id": "%7BcG%7B",
+          "type": "files",
+          "files": []
+        },
+        "Nombre": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Johnatan",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Johnatan",
+              "href": null
+            }
+          ]
+        }
+      },
+      "url": "https://www.notion.so/Johnatan-4aadd307be2145c8ae118f01c4b8e575",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "1e044c51-36d0-455d-b74b-975bf713637f",
+      "created_time": "2023-10-13T03:41:00.000Z",
+      "last_edited_time": "2023-10-17T14:32:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "6eb8d368-0f3a-4341-b198-e7d03ac3323e"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "6eb8d368-0f3a-4341-b198-e7d03ac3323e"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "database_id",
+        "database_id": "72c9c0f4-2b41-49b6-af29-530efd8b6d13"
+      },
+      "archived": false,
+      "properties": {
+        "Number": {
+          "id": "Enf%7D",
+          "type": "number",
+          "number": null
+        },
+        "País": {
+          "id": "HZGr",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Date": {
+          "id": "Hprt",
+          "type": "formula",
+          "formula": {
+            "type": "date",
+            "date": {
+              "start": "2023-10-17T15:05:00.000+00:00",
+              "end": null,
+              "time_zone": null
+            }
+          }
+        },
+        "Estado": {
+          "id": "JZmm",
+          "type": "status",
+          "status": {
+            "id": "b7a89914-b388-44aa-b0a2-f974b86bbbac",
+            "name": "Not started",
+            "color": "default"
+          }
+        },
+        "Que lo hace único?": {
+          "id": "M%5C%3Fk",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Notas Llamada": {
+          "id": "O%7B%7D%7D",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Tech Stack": {
+          "id": "Ps%5BL",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Process": {
+          "id": "V%5DyN",
+          "type": "formula",
+          "formula": {
+            "type": "string",
+            "string": "🚀 Process 🚀"
+          }
+        },
+        "Correo electrónico": {
+          "id": "bm%7CO",
+          "type": "email",
+          "email": null
+        },
+        "Experiencia Laboral": {
+          "id": "i%5DY%3D",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Educación": {
+          "id": "wYXj",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Compañía": {
+          "id": "zD%3BK",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Empresa": {
+          "id": "z_bE",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Prioridad": {
+          "id": "zj%7C~",
+          "type": "select",
+          "select": null
+        },
+        "Transcripcion": {
+          "id": "%7BCga",
+          "type": "files",
+          "files": []
+        },
+        "Empresa1": {
+          "id": "%7BJ%7CP",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Candidate Agreement": {
+          "id": "%7BcG%7B",
+          "type": "files",
+          "files": []
+        },
+        "Nombre": {
           "id": "title",
           "type": "title",
           "title": [
@@ -74,5 +576,5 @@
   "has_more": false,
   "type": "page_or_database",
   "page_or_database": {},
-  "request_id": "54f5b069-14e2-4583-b72f-6659270e15db"
+  "request_id": "3b9ad0c0-4fbf-4d5f-8031-b5ed79338a86"
 }
