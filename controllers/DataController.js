@@ -1,6 +1,6 @@
 const { Client } = require("@notionhq/client");
 require("dotenv").config();
-const OpenAI = require('openai');
+const OpenAI = require("openai");
 const axios = require("axios");
 const fs = require("fs");
 
@@ -17,36 +17,40 @@ class DataController {
       const element = await notion.pages.retrieve({
         page_id: id,
       });
-      if (element.properties.Transcripcion.files[0]){
+      if (element.properties.Transcripcion.files[0]) {
         const fileUrl = element.properties.Transcripcion.files[0].file.url;
         axios({
-          method: 'get',
-          url: fileUrl, 
-          responseType: 'stream',
+          method: "get",
+          url: fileUrl,
+          responseType: "stream",
         })
-        .then ((response) =>{
-          const writer = fs.createWriteStream('transcripcion.txt');
-          response.data.pipe(writer);
+          .then((response) => {
+            const writer = fs.createWriteStream("transcripcion.txt");
+            response.data.pipe(writer);
 
-          fs.readFile("./transcripcion.txt", "utf8", async (err, transcripcion) => {
-            if (err) {
-              console.error(err);
-              return;
-            }
+            fs.readFile(
+              "./transcripcion.txt",
+              "utf8",
+              async (err, transcripcion) => {
+                if (err) {
+                  console.error(err);
+                  res.status(500).send("Error");
+                }
 
-            const data = DataController.processData(transcripcion);
+                const data = DataController.processData(transcripcion);
 
-            const newData = await notion.pages.update({
-              page_id: id,
-              properties: data,
-            });
+                const newData = await notion.pages.update({
+                  page_id: id,
+                  properties: data,
+                });
 
-            res.render("MyReactView", { newData });
+                res.render("MyReactView", { newData });
+              }
+            );
+          })
+          .catch((error) => {
+            console.log(error);
           });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
       } else {
         console.log("No hay archivo");
         res.status(500).send("Error");
@@ -95,16 +99,16 @@ class DataController {
               },
             ],
           },
-          "Educación": {
+          Educación: {
             rich_text: [
               {
                 text: {
-                  content: transcripcionArray[0]  || "Educación...",
+                  content: transcripcionArray[0] || "Educación...",
                 },
               },
             ],
           },
-          "Empresa": {
+          Empresa: {
             rich_text: [
               {
                 text: {
@@ -113,7 +117,7 @@ class DataController {
               },
             ],
           },
-          "Empresa1": {
+          Empresa1: {
             rich_text: [
               {
                 text: {
@@ -134,7 +138,7 @@ class DataController {
         };
         // console.log(resultado);
         return resultado;
-       })
+      })
       .catch((error) => {
         console.error("Error al llamar a la API de OpenAI:", error);
       });
