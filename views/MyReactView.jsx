@@ -31,7 +31,7 @@ function MyReactView(props) {
       <p style={pStyle}>Education: {newData.properties["Educación"].rich_text[0].text.content}</p>
       <p style={pStyle}>Compañía: {newData.properties["Compañía"].rich_text[0].text.content}</p>
       <p style={pStyle}>Empresa: {newData.properties["Empresa"].rich_text[0].text.content}</p>
-      <p style={pStyle}>Empresa1: {newData.properties["Empresa1"].rich_text[0].text.content}</p>
+      {/* <p style={pStyle}>Empresa1: {newData.properties["Empresa1"].rich_text[0].text.content}</p> */}
     </div>
   );
 }
