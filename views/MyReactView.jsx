@@ -1,5 +1,4 @@
 import React from 'react';
-
 function MyReactView(props) {
   const { newData } = props;
 
@@ -25,10 +24,14 @@ function MyReactView(props) {
 
   return (
     <div style={divStyle}>
-      <h1 style={h1Style}>The information of {newData.properties.Name.title[0].text.content} has updated success</h1>
-      <p style={pStyle}>Skills: {newData.properties.Skills.rich_text[0].text.content}</p>
-      <p style={pStyle}>Experience: {newData.properties.Experience.rich_text[0].text.content}</p>
-      <p style={pStyle}>Summary: {newData.properties.summary.rich_text[0].text.content}</p>
+      <h1 style={h1Style}>The information of {newData.properties.Nombre.title[0].text.content} has updated success</h1>
+      <p style={pStyle}>Skills: {newData.properties["Que lo hace único?"].rich_text[0].text.content}</p>
+      <p style={pStyle}>Tech stack: {newData.properties["Tech Stack"].rich_text[0].text.content}</p>
+      <p style={pStyle}>Experience: {newData.properties["Experiencia Laboral"].rich_text[0].text.content}</p>
+      <p style={pStyle}>Education: {newData.properties["Educación"].rich_text[0].text.content}</p>
+      <p style={pStyle}>Compañía: {newData.properties["Compañía"].rich_text[0].text.content}</p>
+      <p style={pStyle}>Empresa: {newData.properties["Empresa"].rich_text[0].text.content}</p>
+      <p style={pStyle}>Empresa1: {newData.properties["Empresa1"].rich_text[0].text.content}</p>
     </div>
   );
 }
