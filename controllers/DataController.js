@@ -35,9 +35,15 @@ class DataController {
                 if (err) {
                   console.error(err);
                   res.status(500).send("Error");
+                  return;
                 }
 
-                const data = DataController.processData(transcripcion);
+                const data = await DataController.processData(transcripcion);
+
+                if (data == undefined) {
+                  res.status(500).send("Error, API OpenAI");
+                  return;
+                }
 
                 const newData = await notion.pages.update({
                   page_id: id,
@@ -49,99 +55,107 @@ class DataController {
             );
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
+            res.status(500).send("Error, processing the txt file");
           });
       } else {
-        console.log("No hay archivo");
-        res.status(500).send("Error");
+        console.log("No Files");
+        res.status(500).send("Error, you need put a transcription file");
       }
     } catch (error) {
-      res.status(500).send("Error");
+      res.status(500).send("Error, Not Found");
       console.error(error);
     }
   }
 
-  static processData(transcripcion) {
-    openai.completions
-      .create({
-        model: "text-davinci-002",
-        prompt: `Con la siguiente transcripcion crea un array de longitud dos, donde el primer array tenga las habilidades de la persona entrevistada y el segundo la experiencia de lo siguiente: ${transcripcion}`,
-        max_tokens: 50,
-      })
-      .then((response) => {
-        const respuesta = response.choices[0].text;
-        const transcripcionArray = [respuesta];
-        const resultado = {
-          "Que lo hace único?": {
-            rich_text: [
-              {
-                text: {
-                  content: transcripcionArray[0] || "Lo hace unico...",
-                },
-              },
-            ],
-          },
-          "Tech Stack": {
-            rich_text: [
-              {
-                text: {
-                  content: transcripcionArray[0] || "Tech Stack...",
-                },
-              },
-            ],
-          },
-          "Experiencia Laboral": {
-            rich_text: [
-              {
-                text: {
-                  content: transcripcionArray[0] || "Experiencia Laboral...",
-                },
-              },
-            ],
-          },
-          Educación: {
-            rich_text: [
-              {
-                text: {
-                  content: transcripcionArray[0] || "Educación...",
-                },
-              },
-            ],
-          },
-          Empresa: {
-            rich_text: [
-              {
-                text: {
-                  content: transcripcionArray[0] || "Empresa...",
-                },
-              },
-            ],
-          },
-          Empresa1: {
-            rich_text: [
-              {
-                text: {
-                  content: transcripcionArray[0] || "Empresa1...",
-                },
-              },
-            ],
-          },
-          // "Candidate Agreement": {
-          //   rich_text: [
-          //     {
-          //       text: {
-          //         content: "New Summary",//transcripcionArray[0],
-          //       },
-          //     },
-          //   ],
-          // },
-        };
-        // console.log(resultado);
-        return resultado;
-      })
-      .catch((error) => {
-        console.error("Error al llamar a la API de OpenAI:", error);
+  static async processData(transcripcion) {
+    try {
+      const response = await openai.chat.completions.create({
+        messages: [{ role: "system", content: `${process.env.SECRET_PROMPT} ${transcripcion}` }],
+        model: "gpt-3.5-turbo",
+        temperature: 0,
+        //max_tokens: 50,
       });
+
+      console.log(response.choices[0]);
+
+      const respuesta = response.choices[0].message.content;
+
+      console.log(respuesta);
+
+      // Pendiente tokenizar respuesta
+      const transcripcionArray = respuesta.split("\n");
+
+      console.log(transcripcionArray);
+
+      return {
+        "Que lo hace único?": {
+          rich_text: [
+            {
+              text: {
+                content: transcripcionArray[4],
+              },
+            },
+          ],
+        },
+        "Tech Stack": {
+          rich_text: [
+            {
+              text: {
+                content: transcripcionArray[6],
+              },
+            },
+          ],
+        },
+        "Experiencia Laboral": {
+          rich_text: [
+            {
+              text: {
+                content: transcripcionArray[0],
+              },
+            },
+          ],
+        },
+        Educación: {
+          rich_text: [
+            {
+              text: {
+                content: transcripcionArray[2],
+              },
+            },
+          ],
+        },
+        Empresa: {
+          rich_text: [
+            {
+              text: {
+                content: transcripcionArray[0],
+              },
+            },
+          ],
+        },
+        Empresa1: {
+          rich_text: [
+            {
+              text: {
+                content: transcripcionArray[0],
+              },
+            },
+          ],
+        },
+        // "Candidate Agreement": {
+        //   rich_text: [
+        //     {
+        //       text: {
+        //         content: "New Summary",//transcripcionArray[0],
+        //       },
+        //     },
+        //   ],
+        // },
+      };
+    } catch (error) {
+      console.error("Error al llamar la API de OpenAI", error);
+    }
   }
 }
 
