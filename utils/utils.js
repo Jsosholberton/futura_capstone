@@ -3,6 +3,7 @@ const fs = require("fs");
 const pr = require("fs").promises;
 
 function reduceTranscription(transcripcion) {
+  // const regex = /^(\d+:\d+) Alejandro Pineda: (.+)$/gm;
   const regex = /^(\d+:\d+) (?!Alejandro Pineda:)(.+)$/gm; // We need to add the name of the interviewer
 
   const resultados = [];
