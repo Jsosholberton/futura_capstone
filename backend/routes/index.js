@@ -1,8 +1,9 @@
-const express = require('express');
-const DataController = require("../controllers/DataController");
+import express from "express";
+import DataController from "../controllers/DataController.js";
+import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
-router.get('/process/:id', DataController.updateNotionData);
+router.get('/process/:id', DataController.updateNotionData) // checkAuth,
 
-module.exports = router;
+export default router;
