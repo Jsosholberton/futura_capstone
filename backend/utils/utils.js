@@ -1,10 +1,9 @@
-const axios = require("axios");
-const fs = require("fs");
-const pr = require("fs").promises;
+import axios from "axios";
+import fs from "fs";
+import { promises as pr } from "fs";
 
-function reduceTranscription(transcripcion) {
-  // const regex = /^(\d+:\d+) Alejandro Pineda: (.+)$/gm;
-  const regex = /^(\d+:\d+) (?!Alejandro Pineda:)(.+)$/gm; // We need to add the name of the interviewer
+async function reduceTranscription(transcripcion) {
+  const regex = /^(\d+:\d+) (?!Alejandro Pineda:)(.+)$/gm;
 
   const resultados = [];
   let match;
@@ -16,20 +15,40 @@ function reduceTranscription(transcripcion) {
 }
 
 function downloadTxt(fileUrl) {
-  axios({
-    method: "get",
-    url: fileUrl,
-    responseType: "stream",
-  })
-    .then((response) => {
-      const writer = fs.createWriteStream("transcripcion.txt");
-      response.data.pipe(writer);
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "get",
+      url: fileUrl,
+      responseType: "stream",
     })
-    .catch((error) => {
-      console.error(error);
+      .then((response) => {
+        const writer = fs.createWriteStream("transcripcion.txt");
+        response.data.pipe(writer);
+
+        writer.on('finish', () => {
+          resolve(true);
+        });
+        writer.on('error', (error) => {
+          console.error("Error al descargar el archivo: " + error.message);
+          reject(false);
+        });
+      })
+      .catch((error) => {
+        console.error("Error al descargar el archivo: " + error.message);
+        reject(false);
+      });
+  });
+
+}
+
+function deleteTxt() {
+  fs.unlink("transcripcion.txt", (err) => {
+    if (err) {
+      console.error(err.message);
       return false;
-    });
-  return true;
+    }
+    return true;
+  });
 }
 
 function formatData(data) {
@@ -112,9 +131,10 @@ async function readTxt() {
       }
 }
 
-module.exports = {
+export {
   reduceTranscription,
   formatData,
   downloadTxt,
   readTxt,
+  deleteTxt,
 };

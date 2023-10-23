@@ -1,13 +1,17 @@
-const { Client } = require("@notionhq/client");
-require("dotenv").config();
-const OpenAI = require("openai");
+import { Client } from "@notionhq/client";
+import dotenv from "dotenv";
+import OpenAI from "openai";
 
-const {
+
+dotenv.config();
+
+import {
   reduceTranscription,
   formatData,
   downloadTxt,
   readTxt,
-} = require("../utils/utils");
+  deleteTxt,
+} from "../utils/utils.js";
 
 const openai = new OpenAI({ key: process.env.OPENAI_API_KEY });
 
@@ -28,7 +32,7 @@ class DataController {
 
         const fileUrl = element.properties.Transcripcion.files[0].file.url;
 
-        const file = downloadTxt(fileUrl);
+        const file = await downloadTxt(fileUrl);
 
         if (!file) {
           console.log("Error al descargar el archivo");
@@ -64,7 +68,9 @@ class DataController {
           properties: data,
         });
 
-        res.render("MyReactView", { newData });
+        await deleteTxt();
+
+        res.json(newData);
 
       } else {
         console.log("No Files");
@@ -115,4 +121,4 @@ class DataController {
   }
 }
 
-module.exports = DataController;
+export default DataController;
