@@ -78,33 +78,34 @@ class DataController {
 
   static async processData(transcripcion) {
     try {
-      // const response = await openai.chat.completions.create({
-      //   messages: [
-      //     {
-      //       role: "system",
-      //       content: `${process.env.SECRET_PROMPT} ${transcripcion}`,
-      //     },
-      //   ],
-      //   model: "gpt-3.5-turbo",
-      //   temperature: 0,
-      //   //max_tokens: 50,
-      // });
-
-      const response = {
-        choices: [
+      const response = await openai.chat.completions.create({
+        messages: [
           {
-            message: {
-              content:
-                "Últimas dos empresas donde trabajó: No se mencionan en el currículum.\n" +
-                "Historial educativo: No se menciona en el currículum.\n" +
-                "Aspectos que hacen que esta persona sea única: No se mencionan en el currículum.\n" +
-                "Tecnologías o stack tecnológico mencionado: No se mencionan en el currículum.",
-            },
+            role: "system",
+            content: `${process.env.SECRET_PROMPT} ${transcripcion}`,
           },
         ],
-      };
+        model: "gpt-3.5-turbo",
+        temperature: 0,
+        //max_tokens: 50,
+      });
+
+      // const response = {
+      //   choices: [
+      //     {
+      //       message: {
+      //         content:
+      //           "Últimas dos empresas donde trabajó: No se mencionan en el currículum.\n" +
+      //           "Historial educativo: No se menciona en el currículum.\n" +
+      //           "Aspectos que hacen que esta persona sea única: No se mencionan en el currículum.\n" +
+      //           "Tecnologías o stack tecnológico mencionado: No se mencionan en el currículum.",
+      //       },
+      //     },
+      //   ],
+      // };
 
       const respuesta = response.choices[0].message.content;
+      console.log(respuesta);
 
       const dataFormated = formatData(respuesta);
 
