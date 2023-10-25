@@ -4,7 +4,7 @@ import { jsPDF } from "jspdf";
 import { promises as pr } from "fs";
 
 async function reduceTranscription(transcripcion) {
-  const regex = /^(\d+:\d+) (?!Alejandro Pineda:)(.+)$/gm;
+  const regex = /^(\d+:\d+) (?!Santiago Matinez:)(.+)$/gm;
 
   const resultados = [];
   let match;
@@ -53,7 +53,14 @@ function deleteTxt() {
 }
 
 function formatData(data) {
-  const dataArr = data.split("\n");
+  const dataArrTmp = data.split("\n");
+  const dataArr = [];
+
+  for (data in dataArrTmp) {
+    if (dataArrTmp[data] !== "") {
+      dataArr.push(dataArrTmp[data]);
+    }
+  }
 
   return {
     "Que lo hace único?": {
@@ -135,11 +142,13 @@ async function readTxt() {
   function genPdf(name) {
     const doc = new jsPDF();
 
-    // Página 1
+    //1_page
+    doc.setFontSize(16);
     doc.text(`
 Futura Candidate Agreement @
-${name}
+${name}.`, 5, 12);
 
+    doc.text(`
 This Agreement (the "Agreement") is entered into between Futura
 represented by Santiago Martinez Jaramillo (referred to as the "Agency")
 and ${name} (referred to as the "Candidate"),
@@ -243,13 +252,15 @@ and understanding of this Agreement.
 
     Futura
     By: Santiago Martinez Jaramillo           By: ${name}
+
     C.C. _______________________              C.C. ___________________
+
     Signature:                                (Colombia)
     Candidate
     
     Signature`, 5, 12);
 
-    doc.save(`${name.replace(' ', '_')}.pdf`);
+    doc.save(`downloads/${name.replace(/\s/g, "_")}.pdf`);
   }
 
 export {
