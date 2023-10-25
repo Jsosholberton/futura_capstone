@@ -2,7 +2,6 @@ import { Client } from "@notionhq/client";
 import dotenv from "dotenv";
 import OpenAI from "openai";
 
-
 dotenv.config();
 
 import {
@@ -33,9 +32,7 @@ class DataController {
 
         const fileUrl = element.properties.Transcripcion.files[0].file.url;
 
-        const cName = element.properties.Nombre.title[0].text.content;
-
-        genPdf(cName);
+        const name = element.properties.Nombre.title[0].plain_text;
 
         const file = await downloadTxt(fileUrl);
 
@@ -53,7 +50,7 @@ class DataController {
           return;
         }
 
-        transcripcion = reduceTranscription(transcripcion);
+        transcripcion = (await reduceTranscription(transcripcion)).toString();
 
         if (!transcripcion) {
           console.log("Error al reducir el archivo");
@@ -68,9 +65,13 @@ class DataController {
           return;
         }
 
+        await genPdf(name);
+
+        const allData = { ...data };
+
         const newData = await notion.pages.update({
           page_id: id,
-          properties: data,
+          properties: allData,
         });
 
         await deleteTxt();
