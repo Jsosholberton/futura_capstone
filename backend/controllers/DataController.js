@@ -1,6 +1,7 @@
 import { Client } from "@notionhq/client";
 import dotenv from "dotenv";
 import OpenAI from "openai";
+import fs from "fs";
 
 dotenv.config();
 
@@ -58,6 +59,8 @@ class DataController {
           return;
         }
 
+        fs.createWriteStream("transcripcionresumen.txt").write(transcripcion);
+
         const data = await DataController.processData(transcripcion);
 
         if (!data) {
@@ -90,34 +93,39 @@ class DataController {
 
   static async processData(transcripcion) {
     try {
-      // const response = await openai.chat.completions.create({
-      //   messages: [
-      //     {
-      //       role: "system",
-      //       content: `${process.env.SECRET_PROMPT} ${transcripcion}`,
-      //     },
-      //   ],
-      //   model: "gpt-3.5-turbo",
-      //   temperature: 0,
-      //   //max_tokens: 50,
-      // });
-
-      const response = {
-        choices: [
+      const response = await openai.chat.completions.create({
+        messages: [
           {
-            message: {
-              content:
-                "Últimas dos empresas donde trabajó: No se mencionan en el currículum.\n" +
-                "Historial educativo: No se menciona en el currículum.\n" +
-                "Aspectos que hacen que esta persona sea única: No se mencionan en el currículum.\n" +
-                "Tecnologías o stack tecnológico mencionado: No se mencionan en el currículum.",
-            },
+            role: "system",
+            content: `${process.env.SECRET_PROMPT} ${transcripcion}`,
           },
         ],
-      };
+        model: "gpt-3.5-turbo",
+        temperature: 0,
+        //max_tokens: 50,
+      });
+
+      // const response = {
+      //   choices: [
+      //     {
+      //       message: {
+      //         content:
+
+      //         "Experiencia laboral: Operario de planta en Acate Motos.\n" +
+      //         "Historial educativo: Estudió en Holberton.\n" +
+      //         "Aspectos que hacen que esta persona sea única: Ha realizado proyectos en equipo utilizando lenguajes como C, HTML, CSS, JavaScript y React. También ha trabajado en el desarrollo de una tienda de muebles y un ecommerce.\n" +
+      //         "Tecnologías o stack tecnológico mencionado: C, HTML, CSS, JavaScript, React.\n" +
+      //         "Resumen: Profesión: Desarrollador. Nombre: Ruben Dario Florez Betancur. Cargo relacionado: Junior. Años de experiencia: No se menciona. Tecnologías: C, HTML, CSS, JavaScript, React. Res\n",
+      //       }
+      //     },
+      //   ],
+      // };
 
       const respuesta = response.choices[0].message.content;
+
       console.log(respuesta);
+
+      fs.createWriteStream("respuesta.txt").write(respuesta);
 
       const dataFormated = formatData(respuesta);
 
