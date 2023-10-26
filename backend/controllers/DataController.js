@@ -93,16 +93,36 @@ class DataController {
 
   static async processData(transcripcion) {
     try {
+      // const response = await openai.chat.completions.create({
+      //   messages: [
+      //     {
+      //       role: "system",
+      //       content: `${process.env.SECRET_PROMPT} ${transcripcion}`,
+      //     },
+      //   ],
+      //   model: "gpt-3.5-turbo",
+      //   temperature: 0,
+      //   //max_tokens: 50,
+      // });
+
       const response = await openai.chat.completions.create({
         messages: [
           {
-            role: "system",
-            content: `${process.env.SECRET_PROMPT} ${transcripcion}`,
-          },
-        ],
-        model: "gpt-3.5-turbo",
-        temperature: 0,
-        //max_tokens: 50,
+          role: 'system',
+          content: "Eres un analista de seleccion, acabaste de tener estas respuestas de un candidato"+ transcripcion,
+                },
+
+          {
+            role: 'user',
+            content: "Experiencia laboral : (Aca iria la informacion recopilada de la experiencia laboral y academica, separada por comas relacionado con desarrollo de software)"+
+            "Historial educativo : (aca iria  la informacion recopilada de grados o estudios y universidades o institutos)."+
+            "Aspectos que hacen que esta persona sea única : (aca iria  la informacion recopilada sobre que hace unico al entrevistado)"+
+            "Tecnologías o stack tecnológico mencionado : (lista de tecnologias, lenguajes de programacion y herramientas, separadas por comas)"+
+            "Resumen : (aca iria el resumen del candidato relacionado con desarrollo)."
+          }
+      ],
+      model: "gpt-3.5-turbo",
+      temperature: 0,
       });
 
       // const response = {
