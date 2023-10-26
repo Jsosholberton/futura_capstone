@@ -4,7 +4,7 @@ import { jsPDF } from "jspdf";
 import { promises as pr } from "fs";
 
 async function reduceTranscription(transcripcion) {
-  const regex = /^(\d+:\d+) (?!Santiago Matinez:)(.+)$/gm;
+  const regex = /^(\d+:\d+) (?!Santiago Martinez:)(.+)$/gm;
 
   const resultados = [];
   let match;
@@ -62,30 +62,26 @@ function formatData(data) {
     }
   }
 
+  const TechStack = dataArr[3].split(":")[1].split(",").map(stack => ({ name: stack.replace(".", "") }));
+
   return {
     "Que lo hace único?": {
       rich_text: [
         {
           text: {
-            content: dataArr[2],
+            content: dataArr[2].split(":")[1],
           },
         },
       ],
     },
     "Tech Stack": {
-      rich_text: [
-        {
-          text: {
-            content: dataArr[3],
-          },
-        },
-      ],
+      multi_select: TechStack,
     },
     "Experiencia Laboral": {
       rich_text: [
         {
           text: {
-            content: dataArr[0],
+            content: dataArr[0].split(":")[1],
           },
         },
       ],
@@ -94,25 +90,16 @@ function formatData(data) {
       rich_text: [
         {
           text: {
-            content: dataArr[1],
+            content: dataArr[1].split(":")[1],
           },
         },
       ],
     },
-    Empresa: {
+    Copy: {
       rich_text: [
         {
           text: {
-            content: dataArr[0],
-          },
-        },
-      ],
-    },
-    Empresa1: {
-      rich_text: [
-        {
-          text: {
-            content: dataArr[0],
+            content: dataArr[4],
           },
         },
       ],
