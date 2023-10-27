@@ -2,6 +2,7 @@ import axios from "axios";
 import fs from "fs";
 import { jsPDF } from "jspdf";
 import { promises as pr } from "fs";
+import nodemailer from "nodemailer";
 
 async function reduceTranscription(transcripcion) {
   const regex = /^(\d+:\d+) (?!Santiago Martinez:)(.+)$/gm;
@@ -125,6 +126,41 @@ async function readTxt() {
         return undefined;
       }
 }
+
+
+
+async function sendCandidateAgreement() {
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: "enviocorreopdf@gmail.com",
+        pass: "diaq xmru ndzt lwzp",
+    },
+});
+
+// como me traigo el correo electronico del candidato????
+const destinatarioData = "char951144@gmail.com";
+
+  const info = await transporter.sendMail({
+    from: "enviocorreopdf@gmail.com",
+    to: destinatarioData,
+    subject: "Mirame, soy un correo",
+    text: "Aqui va el contenido del correo",
+    attachments: [
+      {
+          filename: "documento.pdf",
+          path: "./downloads/Penelope.pdf",
+          encoding: "utf-8"
+      }
+    ]
+  });
+
+  console.log("Message sent: %s", info.messageId);
+}
+sendCandidateAgreement().catch(console.error);
+
 
   function genPdf(name) {
     const doc = new jsPDF();
@@ -269,4 +305,5 @@ export {
   readTxt,
   deleteTxt,
   genPdf,
+  sendCandidateAgreement,
 };
