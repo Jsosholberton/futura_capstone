@@ -129,7 +129,14 @@ async function readTxt() {
 
 
 
-async function sendCandidateAgreement() {
+async function sendCandidateAgreement(user) {
+
+  const email = user.properties["Correo electrónico"].email;
+
+  const name = user.properties.Nombre.title[0].plain_text;
+
+  const fileName = `${name.replace(/\s/g, "_")}.pdf`;
+
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -141,17 +148,15 @@ async function sendCandidateAgreement() {
 });
 
 // como me traigo el correo electronico del candidato????
-const destinatarioData = "char951144@gmail.com";
-
   const info = await transporter.sendMail({
     from: "enviocorreopdf@gmail.com",
-    to: destinatarioData,
-    subject: "Mirame, soy un correo",
-    text: "Aqui va el contenido del correo",
+    to: email,
+    subject: `Hola ${name}, este es el acuerdo de candidato`,
+    text: `Hola ${name}, este es el acuerdo de candidato...`,
     attachments: [
       {
-          filename: "documento.pdf",
-          path: "./downloads/Penelope.pdf",
+          filename: fileName,
+          path: `./downloads/${fileName}`,
           encoding: "utf-8"
       }
     ]
@@ -159,8 +164,6 @@ const destinatarioData = "char951144@gmail.com";
 
   console.log("Message sent: %s", info.messageId);
 }
-sendCandidateAgreement().catch(console.error);
-
 
   function genPdf(name) {
     const doc = new jsPDF();
