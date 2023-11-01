@@ -4,6 +4,7 @@ import conectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import cors from "cors";
 import dotenv from "dotenv";
+import companyRoutes from "./routes/companyRoutes.js"
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use(cors());//corsOptions));
 
 app.use('/api/candidates', index);
 app.use('/api/users', userRoutes);
+app.use('/api/companies', companyRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server running on: ${process.env.PORT}`);

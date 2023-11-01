@@ -147,7 +147,6 @@ async function sendCandidateAgreement(user) {
     },
 });
 
-// como me traigo el correo electronico del candidato????
   const info = await transporter.sendMail({
     from: "enviocorreopdf@gmail.com",
     to: email,
@@ -164,7 +163,7 @@ async function sendCandidateAgreement(user) {
 
   console.log("Message sent: %s", info.messageId);
 }
-sendCandidateAgreement().catch(console.error);
+
 
 export {
   reduceTranscription,

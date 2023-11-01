@@ -13,6 +13,7 @@ import {
   downloadTxt,
   readTxt,
   deleteTxt,
+  sendCandidateAgreement,
 } from "../utils/utils.js";
 
 const openai = new OpenAI({ key: process.env.OPENAI_API_KEY });
