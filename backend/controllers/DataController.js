@@ -107,15 +107,16 @@ class DataController {
 
            {
              role: 'user',
-             content: "Experiencia laboral : (Aca iria la informacion recopilada de la experiencia laboral y academica, separada por comas relacionado con desarrollo de software)"+
-             "Historial educativo : (aca iria  la informacion recopilada de grados o estudios y universidades o institutos)."+
-             "Aspectos que hacen que esta persona sea única : (aca iria  la informacion recopilada sobre que hace unico al entrevistado)"+
+             content: 
+             "En ingles, completa:"+
+             "Experiencia laboral : (informacion recopilada de la experiencia laboral y academica, separada por comas relacionado con desarrollo de software)"+
+             "Historial educativo : (informacion recopilada de grados o estudios y universidades o institutos)."+
+             "Aspectos que hacen que esta persona sea única : (informacion recopilada sobre que hace unico)"+
              "Tecnologías o stack tecnológico mencionado : (lista de tecnologias, lenguajes de programacion y herramientas, separadas por comas)"+
-             "Resumen : (aca iria el resumen del candidato relacionado con desarrollo)."+
-             "Años Experiencia: (Numero)"+
-             "Profesion: (Backend,Frontend,ETC)"+
-             "Industrias: (Lista De industrias en las que Podria Trabajar)"
-
+             "Resumen : (aca iria el resumen del candidato relacionado con habilidades blandas)."+
+             "Años Experiencia: (Numero según su experiencia o conocimientos, si no '0')"+
+             "Profesion: (Backend, Frontend, Fullstack lista separada por comas)"+
+             "Industrias: (lista de industrias en la que podria trabajar segun su experiencia o proyectos)"
            }
        ],
        model: "gpt-3.5-turbo",
