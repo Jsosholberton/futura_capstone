@@ -97,53 +97,46 @@ class DataController {
 
   static async processData(transcripcion) {
     try {
-      // const response = await openai.chat.completions.create({
-      //   messages: [
+     
+       const response = await openai.chat.completions.create({
+         messages: [
+           {
+           role: 'system',
+           content: "Eres un analista de seleccion, acabaste de tener estas respuestas de un candidato"+ transcripcion,
+                },
+
+           {
+             role: 'user',
+             content: "Experiencia laboral : (Aca iria la informacion recopilada de la experiencia laboral y academica, separada por comas relacionado con desarrollo de software)"+
+             "Historial educativo : (aca iria  la informacion recopilada de grados o estudios y universidades o institutos)."+
+             "Aspectos que hacen que esta persona sea única : (aca iria  la informacion recopilada sobre que hace unico al entrevistado)"+
+             "Tecnologías o stack tecnológico mencionado : (lista de tecnologias, lenguajes de programacion y herramientas, separadas por comas)"+
+             "Resumen : (aca iria el resumen del candidato relacionado con desarrollo)."+
+             "Años Experiencia: (Numero)"+
+             "Profesion: (Backend,Frontend,ETC)"+
+             "Industrias: (Lista De industrias en las que Podria Trabajar)"
+
+           }
+       ],
+       model: "gpt-3.5-turbo",
+      temperature: 0,
+      });
+
+      // const response = {
+      //   choices: [
       //     {
-      //       role: "system",
-      //       content: `${process.env.SECRET_PROMPT} ${transcripcion}`,
+      //       message: {
+      //         content:
+
+      //         "Experiencia laboral: Operario de planta en Acate Motos.\n" +
+      //         "Historial educativo: Estudió en Holberton.\n" +
+      //         "Aspectos que hacen que esta persona sea única: Ha realizado proyectos en equipo utilizando lenguajes como C, HTML, CSS, JavaScript y React. También ha trabajado en el desarrollo de una tienda de muebles y un ecommerce.\n" +
+      //         "Tecnologías o stack tecnológico mencionado: C, HTML, CSS, JavaScript, React.\n" +
+      //         "Resumen: Profesión: Desarrollador. Nombre: Ruben Dario Florez Betancur. Cargo relacionado: Junior. Años de experiencia: No se menciona. Tecnologías: C, HTML, CSS, JavaScript, React. Res\n",
+      //       }
       //     },
       //   ],
-      //   model: "gpt-3.5-turbo",
-      //   temperature: 0,
-      //   //max_tokens: 50,
-      // });
-
-      // const response = await openai.chat.completions.create({
-      //   messages: [
-      //     {
-      //     role: 'system',
-      //     content: "Eres un analista de seleccion, acabaste de tener estas respuestas de un candidato"+ transcripcion,
-      //           },
-
-      //     {
-      //       role: 'user',
-      //       content: "Experiencia laboral : (Aca iria la informacion recopilada de la experiencia laboral y academica, separada por comas relacionado con desarrollo de software)"+
-      //       "Historial educativo : (aca iria  la informacion recopilada de grados o estudios y universidades o institutos)."+
-      //       "Aspectos que hacen que esta persona sea única : (aca iria  la informacion recopilada sobre que hace unico al entrevistado)"+
-      //       "Tecnologías o stack tecnológico mencionado : (lista de tecnologias, lenguajes de programacion y herramientas, separadas por comas)"+
-      //       "Resumen : (aca iria el resumen del candidato relacionado con desarrollo)."
-      //     }
-      // ],
-      // model: "gpt-3.5-turbo",
-      // temperature: 0,
-      // });
-
-      const response = {
-        choices: [
-          {
-            message: {
-              content:
-
-              "Experiencia laboral: Operario de planta en Acate Motos.\n" +
-              "Historial educativo: Estudió en Holberton.\n" +
-              "Aspectos que hacen que esta persona sea única: Ha realizado proyectos en equipo utilizando lenguajes como C, HTML, CSS, JavaScript y React. También ha trabajado en el desarrollo de una tienda de muebles y un ecommerce.\n" +
-              "Tecnologías o stack tecnológico mencionado: C, HTML, CSS, JavaScript, React.\n" +
-              "Resumen: Profesión: Desarrollador. Nombre: Ruben Dario Florez Betancur. Cargo relacionado: Junior. Años de experiencia: No se menciona. Tecnologías: C, HTML, CSS, JavaScript, React. Res\n",
-            }
-          },
-        ],
-      };
+      // };
 
       const respuesta = response.choices[0].message.content;
 
