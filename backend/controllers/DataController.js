@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import OpenAI from "openai";
 import fs from "fs";
 
-import { genPdf } from "../utils/pdfCandidate.js";
+import { genPdf } from "../utils/jsPdfCandidate/pdfCandidate.js";
 
 dotenv.config();
 
@@ -13,6 +13,7 @@ import {
   downloadTxt,
   readTxt,
   deleteTxt,
+  sendCandidateAgreement,
 } from "../utils/utils.js";
 
 const openai = new OpenAI({ key: process.env.OPENAI_API_KEY });

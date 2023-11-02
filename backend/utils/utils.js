@@ -163,8 +163,7 @@ async function sendCandidateAgreement(user) {
   });
 
   console.log("Message sent: %s", info.messageId);
-}
-sendCandidateAgreement().catch(console.error);
+};
 
 export {
   reduceTranscription,
