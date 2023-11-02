@@ -64,6 +64,8 @@ function formatData(data) {
   }
 
   const TechStack = dataArr[3].split(":")[1].split(",").map(stack => ({ name: stack.replace(".", "") }));
+  const positions = dataArr[6].split(":")[1].split(",").map(position => ({ name: position.replace(".", "") }));
+  const industrias = dataArr[7].split(":")[1].split(",").map(industria => ({ name: industria.replace(".", "") }));
 
   return {
     "Que lo hace único?": {
@@ -100,10 +102,19 @@ function formatData(data) {
       rich_text: [
         {
           text: {
-            content: dataArr[4],
+            content: dataArr[4].split(":")[1],
           },
         },
       ],
+    },
+    Posición: {
+      multi_select: positions,
+    },
+    "Años de experiencia": {
+      number: parseInt(dataArr[5].split(":")[1]),
+    },
+    Industria: {
+      multi_select: industrias,
     },
     // "Candidate Agreement": {
     //   rich_text: [
@@ -147,7 +158,6 @@ async function sendCandidateAgreement(user) {
     },
 });
 
-// como me traigo el correo electronico del candidato????
   const info = await transporter.sendMail({
     from: "enviocorreopdf@gmail.com",
     to: email,
@@ -163,7 +173,8 @@ async function sendCandidateAgreement(user) {
   });
 
   console.log("Message sent: %s", info.messageId);
-};
+}
+
 
 export {
   reduceTranscription,
