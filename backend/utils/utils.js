@@ -1,11 +1,16 @@
-import axios from "axios";
-import fs from "fs";
-import { jsPDF } from "jspdf";
-import { promises as pr } from "fs";
-import nodemailer from "nodemailer";
+import axios from "axios"; // For making HTTP requests
+import fs from "fs"; // For file system operations
+import { jsPDF } from "jspdf"; // For generating PDF documents
+import { promises as pr } from "fs"; // Promisified file system operations
+import nodemailer from "nodemailer"; // For sending emails
 
+// Define a function to reduce transcription by extracting certain lines
 async function reduceTranscription(transcripcion) {
+
+  // Define a regular expression to match lines with specific patterns
   const regex = /^(\d+:\d+) (?!Santiago Martinez:)(.+)$/gm;
+
+  const data_companies = "Google, netflix"
 
   const resultados = [];
   let match;
@@ -16,6 +21,7 @@ async function reduceTranscription(transcripcion) {
   return resultados.join("\n");
 }
 
+// Define a function to download a file from a given URL
 function downloadTxt(fileUrl) {
   return new Promise((resolve, reject) => {
     axios({
@@ -43,6 +49,7 @@ function downloadTxt(fileUrl) {
 
 }
 
+// Define a function to delete a text file
 function deleteTxt() {
   fs.unlink("transcripcion.txt", (err) => {
     if (err) {
@@ -53,7 +60,10 @@ function deleteTxt() {
   });
 }
 
+// Define a function to format data into a specific structure
 function formatData(data) {
+
+  // Split the data into an array and remove empty lines
   const dataArrTmp = data.split("\n");
   const dataArr = [];
 
@@ -63,6 +73,7 @@ function formatData(data) {
     }
   }
 
+  // Extract and format specific data points
   const TechStack = dataArr[3].split(":")[1].split(",").map(stack => ({ name: stack.replace(".", "") }));
   const positions = dataArr[6].split(":")[1].split(",").map(position => ({ name: position.replace(".", "") }));
   const industrias = dataArr[7].split(":")[1].split(",").map(industria => ({ name: industria.replace(".", "") }));
@@ -116,6 +127,15 @@ function formatData(data) {
     Industria: {
       multi_select: industrias,
     },
+    Companies: {
+      rich_text: [
+        {
+          text: {
+            content: data_companies[1],
+          },
+        },
+      ],
+    },
     // "Candidate Agreement": {
     //   rich_text: [
     //     {
@@ -128,6 +148,7 @@ function formatData(data) {
   };
 }
 
+// Define a function to read the contents of a text file
 async function readTxt() {
     try {
         const data = await pr.readFile('transcripcion.txt', 'utf8');
@@ -139,7 +160,7 @@ async function readTxt() {
 }
 
 
-
+// Define a function to send a candidate agreement via email
 async function sendCandidateAgreement(user) {
 
   const email = user.properties["Correo electrónico"].email;
