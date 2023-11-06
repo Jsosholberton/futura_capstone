@@ -6,16 +6,12 @@ import nodemailer from "nodemailer"; // For sending emails
 
 // Define a function to reduce transcription by extracting certain lines
 async function reduceTranscription(transcripcion) {
-
-  // Define a regular expression to match lines with specific patterns
   const regex = /^(\d+:\d+) (?!Santiago Martinez:)(.+)$/gm;
-
-  const data_companies = "Google, netflix"
 
   const resultados = [];
   let match;
   while ((match = regex.exec(transcripcion)) !== null) {
-    resultados.push(`${match[1]} ${match[2]}`);
+    resultados.push(`${match[2].split(":")[1]}`);
   }
 
   return resultados.join("\n");
@@ -75,6 +71,7 @@ function formatData(data) {
 
   // Extract and format specific data points
   const TechStack = dataArr[3].split(":")[1].split(",").map(stack => ({ name: stack.replace(".", "") }));
+  const sTechS = dataArr[9].split(":")[1].split(",").map(stack => ({ name: stack.replace(".", "") }));
   const positions = dataArr[6].split(":")[1].split(",").map(position => ({ name: position.replace(".", "") }));
   const industrias = dataArr[7].split(":")[1].split(",").map(industria => ({ name: industria.replace(".", "") }));
 
@@ -90,6 +87,9 @@ function formatData(data) {
     },
     "Tech Stack": {
       multi_select: TechStack,
+    },
+    "Tech Stack especializado": {
+      multi_select: sTechS,
     },
     "Experiencia Laboral": {
       rich_text: [
@@ -127,24 +127,15 @@ function formatData(data) {
     Industria: {
       multi_select: industrias,
     },
-    Companies: {
+    "Salary Expected": {
       rich_text: [
         {
           text: {
-            content: data_companies[1],
+            content: dataArr[8].split(":")[1],
           },
         },
       ],
     },
-    // "Candidate Agreement": {
-    //   rich_text: [
-    //     {
-    //       text: {
-    //         content: "New Summary",//transcripcionArray[0],
-    //       },
-    //     },
-    //   ],
-    // },
   };
 }
 

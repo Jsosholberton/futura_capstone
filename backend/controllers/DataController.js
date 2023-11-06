@@ -131,16 +131,17 @@ class DataController {
             role: 'user',
             content:
               "Complete the information bellow in a single line:" +
-              "Experience: (Information gathered from work and academic experience, followed text like a narrative)" +
+              "Experience: (Information collected from work and academic experience mentioning your contributions in projects, followed by text in narrative format. If the companies mentioned are consultants, exclude the names of the consultants and mention the final clients of the projects)" +
               "Educational History: (Information gathered from degrees or studies and universities or institutes)." +
               "Aspects that make this person unique: (Information gathered about what makes them unique)" +
               "Technologies or tech stack mentioned: List of technologies, programming languages, and tools, separated by commas)" +
               "Summary: (Here would go the candidate's summary related to soft skills)." +
               "Years of Experience: (Number based on their experience or knowledge, if none, '0')" +
               "Profession: (Backend, Frontend, Fullstack list separated by commas)" +
-              "Industries: (List of industries they could work in based on their experience or projects)" //+ 
-              //"Companies: (Companies the candidate worked for, excluding the consultancy names and mentioning only the final client companies of the projects)"
-          },
+              "Industries: (List of industries they could work in based on their experience or projects)" +
+              "Salary: (Salary range. example:  $70/80)" +
+              "Strong tech stack: List of technologies in which have the most experience, programming languages, and tools, separated by commas)"
+          }
         ],
 
         model: "gpt-3.5-turbo",
