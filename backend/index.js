@@ -19,7 +19,9 @@ conectDB();
 // Define a whitelist of allowed origins for CORS
 const whitelist = [process.env.FRONTEND_URL];
 
-// Configure CORS options to control cross-origin access
+ /**
+  * 
+  */
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.includes(origin)) {
@@ -31,8 +33,9 @@ const corsOptions = {
     }
   },
 };
-
-// Enable CORS for the Express app, allowing requests from specified origins
+/** 
+ * 
+ */
 app.use(cors());//corsOptions));
 
 // Define routes for different parts of the application

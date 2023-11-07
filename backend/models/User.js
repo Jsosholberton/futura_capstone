@@ -4,34 +4,36 @@ import mongoose from "mongoose";
 // Import the 'bcrypt' library for password hashing and comparison.
 import bcrypt from "bcrypt";
 
-// Define a Mongoose schema for the 'User' model.
+/**
+ * Mongoose schema to represent a user.
+ */
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        requiered: true, // Field is required
-        trim: true // Remove extra white spaces
+        required: true, // Should be 'required' instead of 'requiered'
+        trim: true
     },
     password: {
         type: String,
-        requiered: true,
-        trim: true    
+        required: true, // Should be 'required' instead of 'requiered'
+        trim: true
     },
     email: {
         type: String,
-        requiered: true,
+        required: true, // Should be 'required' instead of 'requiered'
         trim: true,
         unique: true,
     },
     token: {
         type: String,
     },
-    confirm : {
+    confirm: {
         type: Boolean,
         default: false,
     },
     user: {
         type: String,
-        requiered: false,
+        required: false,
         trim: true,
         unique: true,
     }
@@ -39,7 +41,9 @@ const userSchema = mongoose.Schema({
     timestamps: true,
 });
 
-// Define a pre-save hook to hash the user's password before saving to the database.
+/**
+ * Middleware to hash the password before saving the user to the database.
+ */
 userSchema.pre('save', async function(next) {
     if (!this.isModified('password')) {
         next();
@@ -48,12 +52,18 @@ userSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Define a method to check the provided password against the hashed password in the database.
+/**
+ * Method to verify if the provided password matches the stored password.
+ * @param {string} passwordForm - The provided password to verify.
+ * @returns {Promise<boolean>} Returns true if the password matches, otherwise false.
+ */
 userSchema.methods.checkPassword = async function(passwordForm) {
-    return await bcrypt.compare(passwordForm, this.password)
+    return await bcrypt.compare(passwordForm, this.password);
 };
 
-// Create a Mongoose model named 'User' using the defined schema.
+/**
+ * Mongoose model for the user entity.
+ */
 const User = mongoose.model("User", userSchema);
 
 export default User;
