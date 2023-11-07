@@ -1,11 +1,12 @@
-import User from "../models/User.js";
-import genId from "../helpers/generateid.js";
-import genJWT from "../helpers/generateJWT.js";
-import { emailReg, emailPwd } from "../helpers/emails.js"
+import User from "../models/User.js"; // Import the User model
+import genId from "../helpers/generateid.js"; // Import a function to generate user tokens
+import genJWT from "../helpers/generateJWT.js"; // Import a function to generate JSON Web Tokens
+import { emailReg, emailPwd } from "../helpers/emails.js" // Import functions for sending registration and password-related emails
 
+// Function to register a new user
 const register = async (req, res) => {
 
-    // register duplicate
+    // Check for duplicate user registration using email
     const { email } = req.body;
     const existUser = await User.findOne({email});
 
@@ -15,10 +16,12 @@ const register = async (req, res) => {
     }
 
     try {
+        // Create a new User instance and generate a unique token
         const user = new User(req.body);
         user.token = genId();
         const userSave = await user.save();
 
+        // Send a registration email to the user
         emailReg({
             email: user.email,
             name: user.name,
@@ -31,16 +34,18 @@ const register = async (req, res) => {
     }
 }
 
+// Function to authenticate a user
 const authenticate = async (req, res) => {
 
     const { email, password } = req.body;
+
     // check if the email exists
     const instUser = await User.findOne({email});
     if(!instUser) {
         const error = new Error('User not exist');
         return res.status(404).json({msg: error.message});
     }
-    // check if the user is confirmade
+    // Check if the user's account is confirmed
     if(!instUser.confirm) {
         const error = new Error('Your accont is not confirmed');
         return res.status(404).json({msg: error.message});
@@ -60,6 +65,7 @@ const authenticate = async (req, res) => {
     }
 };
 
+// Function to confirm a user's account
 const confirm = async (req, res) => {
     const { token } = req.params;
     const userConfirm = await User.findOne({token});
@@ -68,6 +74,7 @@ const confirm = async (req, res) => {
         return res.status(403).json({msg: error.message});
     }
     try {
+        // Set the user's account as confirmed and clear the token
         userConfirm.confirm = true;
         userConfirm.token = "";
         await userConfirm.save();
@@ -77,6 +84,7 @@ const confirm = async (req, res) => {
     }
 }
 
+// Function to handle a lost password request
 const lostPwd = async (req, res) => {
     const { email } = req.body;
     const instUser = await User.findOne({email});
@@ -87,10 +95,12 @@ const lostPwd = async (req, res) => {
     }
 
     try {
+        // Generate a new token and save it for the user
         instUser.token = genId();
         await instUser.save();
         res.json({msg: "We have sent an email with instructions"})
 
+        // Send an email with password reset instructions
         emailPwd({
             email: instUser.email,
             name: instUser.name,
@@ -102,6 +112,7 @@ const lostPwd = async (req, res) => {
     }
 };
 
+// Function to check the validity of a token
 const checkToken = async (req, res) => {
     const { token } = req.params;
     const validToken = await User.findOne({ token });
@@ -113,6 +124,7 @@ const checkToken = async (req, res) => {
     }
 };
 
+// Function to set a new password for the user
 const newPwd = async (req, res) => {
     const { token } = req.params;
     const { password } = req.body;
@@ -120,6 +132,8 @@ const newPwd = async (req, res) => {
     const user = await User.findOne({ token });
 
     if (user) {
+
+        // Update the user's password and clear the token
         user.password = password;
         user.token = "";
         try {
@@ -134,6 +148,7 @@ const newPwd = async (req, res) => {
     }
 };
 
+// Function to retrieve user profile information
 const profile = async (req, res) => {
     const { user } = req;
     res.json(user);
