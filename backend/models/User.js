@@ -1,33 +1,36 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
+/**
+ * Mongoose schema to represent a user.
+ */
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        requiered: true,
+        required: true, // Should be 'required' instead of 'requiered'
         trim: true
     },
     password: {
         type: String,
-        requiered: true,
-        trim: true    
+        required: true, // Should be 'required' instead of 'requiered'
+        trim: true
     },
     email: {
         type: String,
-        requiered: true,
+        required: true, // Should be 'required' instead of 'requiered'
         trim: true,
         unique: true,
     },
     token: {
         type: String,
     },
-    confirm : {
+    confirm: {
         type: Boolean,
         default: false,
     },
     user: {
         type: String,
-        requiered: false,
+        required: false,
         trim: true,
         unique: true,
     }
@@ -35,6 +38,9 @@ const userSchema = mongoose.Schema({
     timestamps: true,
 });
 
+/**
+ * Middleware to hash the password before saving the user to the database.
+ */
 userSchema.pre('save', async function(next) {
     if (!this.isModified('password')) {
         next();
@@ -43,10 +49,18 @@ userSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
+/**
+ * Method to verify if the provided password matches the stored password.
+ * @param {string} passwordForm - The provided password to verify.
+ * @returns {Promise<boolean>} Returns true if the password matches, otherwise false.
+ */
 userSchema.methods.checkPassword = async function(passwordForm) {
-    return await bcrypt.compare(passwordForm, this.password)
+    return await bcrypt.compare(passwordForm, this.password);
 };
 
+/**
+ * Mongoose model for the user entity.
+ */
 const User = mongoose.model("User", userSchema);
 
 export default User;

@@ -15,6 +15,9 @@ conectDB();
 
 const whitelist = [process.env.FRONTEND_URL];
 
+ /**
+  * 
+  */
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.includes(origin)) {
@@ -26,7 +29,9 @@ const corsOptions = {
     }
   },
 };
-
+/** 
+ * 
+ */
 app.use(cors());//corsOptions));
 
 app.use('/api/candidates', index);
