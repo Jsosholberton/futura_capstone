@@ -3,18 +3,26 @@ import genId from "../helpers/generateid.js";
 import genJWT from "../helpers/generateJWT.js";
 import { emailReg, emailPwd } from "../helpers/emails.js"
 
+/**
+ * Controller to register a new user.
+ * @param {Object} req - Purpose of express request.
+ * @param {Object} res - Express response object.
+ * @returns 
+ */
 const register = async (req, res) => {
 
     // register duplicate
     const { email } = req.body;
     const existUser = await User.findOne({email});
 
+    // If a user with the same email already exists, it returns an error to the client.
     if (existUser) {
         const error = new Error('User or Email actually is register');
         return res.status(400).json({ msg: error.message });
     }
 
     try {
+        // Creates a new user object using the data provided in the request.
         const user = new User(req.body);
         user.token = genId();
         const userSave = await user.save();
@@ -31,6 +39,12 @@ const register = async (req, res) => {
     }
 }
 
+/**
+ * Controller to authenticate a user.
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const authenticate = async (req, res) => {
 
     const { email, password } = req.body;
@@ -60,9 +74,16 @@ const authenticate = async (req, res) => {
     }
 };
 
+/**
+ * Controller to confirm the user account through a token.
+ * @param {*} req - Para extraer el token
+ * @param {*} res - Enviar respuesta de error o confirmacion al usuario
+ * @returns 
+ */
 const confirm = async (req, res) => {
     const { token } = req.params;
     const userConfirm = await User.findOne({token});
+    // Token Validation
     if (!userConfirm) {
         const error = new Error('Invalid Token');
         return res.status(403).json({msg: error.message});
@@ -77,6 +98,12 @@ const confirm = async (req, res) => {
     }
 }
 
+/**
+ * Controller to reset password.
+ * @param {*} req - Para extraer el correo del usuario
+ * @param {*} res 
+ * @returns 
+ */
 const lostPwd = async (req, res) => {
     const { email } = req.body;
     const instUser = await User.findOne({email});
@@ -102,6 +129,12 @@ const lostPwd = async (req, res) => {
     }
 };
 
+/**
+ * Valida el token
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const checkToken = async (req, res) => {
     const { token } = req.params;
     const validToken = await User.findOne({ token });
@@ -113,6 +146,12 @@ const checkToken = async (req, res) => {
     }
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const newPwd = async (req, res) => {
     const { token } = req.params;
     const { password } = req.body;
@@ -134,11 +173,18 @@ const newPwd = async (req, res) => {
     }
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 const profile = async (req, res) => {
     const { user } = req;
     res.json(user);
 }
 
+
+//
 export {
     register,
     authenticate,

@@ -1,5 +1,9 @@
 import nodemailer from "nodemailer";
 
+/**
+ * Send a registration email with a confirmation link.
+ * @param {Object} datos - Data for the registration email.
+ */
 export const emailReg = async (datos) => {
   const { email, name, token } = datos;
   const transport = nodemailer.createTransport({
@@ -24,6 +28,10 @@ export const emailReg = async (datos) => {
   });
 };
 
+/**
+ * Send a password reset email with a link to reset your password.
+ * @param {Object} datos - Data for the password reset email.
+ */
 export const emailPwd = async (datos) => {
     const { email, name, token } = datos;
     const transport = nodemailer.createTransport({
