@@ -5,9 +5,10 @@ import nodemailer from "nodemailer";
 
 dotenv.config();
 
+// Create a Notion client with authentication
 const notion = new Client({
-    auth: process.env.NOTION_TOKEN,
-  });
+    auth: process.env.NOTION_TOKEN, // Use the NOTION_TOKEN from environment variables
+});
 
 
 /**
@@ -24,15 +25,19 @@ class CompanyController {
     static async sendEmail(req, res){
         const { id } = req.params;
         const copies = [];
-        
+
         try {
             // Get candidate information from Notion.
             const element = await notion.pages.retrieve({
                 page_id: id,
             });
+
+            // Get the list of candidates related to the company
             const candidates = element.properties.Candidatos.relation;
-            for(let candidate of candidates)
-            {
+
+            // Iterate through the candidates to gather their copy data
+            for (let candidate of candidates) {
+                // Iterate through the candidates to gather their copy data
                 const tmp = await notion.pages.retrieve({
                     page_id: candidate.id,
                 });
@@ -44,6 +49,8 @@ class CompanyController {
 
             // Send the company copies of the candidates by email
             CompanyController.sendCandidateCopies(stringCopies, element)
+
+            // Respond with a success status
             res.status(200).send("Funciona")
 
         } catch (error) {
@@ -58,6 +65,7 @@ class CompanyController {
      */
     static async sendCandidateCopies(copies, company) {
 
+        // Extract necessary information from the company's Notion page
         const email = company.properties.Correo.email;
         const contacto = company.properties.Contacto.rich_text[0].text.content;
         const name = company.properties.Name.title[0].text.content;
@@ -75,14 +83,15 @@ class CompanyController {
       
         // Send the email with the candidates' copies.
         const info = await transporter.sendMail({
-          from: "enviocorreopdf@gmail.com",
-          to: email,
-          subject: `Hola ${name}, estos son los candidatos`,
-          text: `Hi ${contacto}, We've been working hard to get new developers\n\n${copies}`,
+            from: "enviocorreopdf@gmail.com",
+            to: email,
+            subject: `Hola ${name}, estos son los candidatos`,
+            text: `Hi ${contacto}, We've been working hard to get new developers\n\n${copies}`,
         });
-      
+
+        // Log a confirmation message
         console.log("Message sent: %s", info.messageId);
-      }
+    }
 }
 
 // Exports the CompanyController class so that it can be used in other modules.

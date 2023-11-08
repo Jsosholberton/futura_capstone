@@ -1,10 +1,14 @@
-import { Client } from "@notionhq/client";
-import dotenv from "dotenv";
-import OpenAI from "openai";
-import fs from "fs";
+/**
+ * Imports necessary libraries and modules for the application.
+ */
+import { Client } from "@notionhq/client"; // Import the Notion API client
+import dotenv from "dotenv"; // Import the dotenv module for environment variables
+import OpenAI from "openai"; // Import the OpenAI library
+import fs from "fs"; // Import the file system module
 
 import { genPdf } from "../utils/jsPdfCandidate/pdfCandidate.js";
 
+// Load environment variables from a .env file (dotenv)
 dotenv.config();
 
 import {
@@ -16,27 +20,43 @@ import {
   sendCandidateAgreement,
 } from "../utils/utils.js";
 
+// Initialize the OpenAI client with the provided API key
 const openai = new OpenAI({ key: process.env.OPENAI_API_KEY });
 
+// Create a Notion client with authentication
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
+// Define the DataController class
 class DataController {
+
+  /**
+   * Updates Notion data based on transcription and sends a candidate agreement via email.
+   *
+   * @param {Request} req - The request object.
+   * @param {Response} res - The response object.
+   * @returns {Response} The response object.
+   */
   static async updateNotionData(req, res) {
     const { id } = req.params;
 
     try {
+      // Retrieve a Notion page by its page_id
       const element = await notion.pages.retrieve({
         page_id: id,
       });
 
+      // Check if the page contains a transcription file
       if (element.properties.Transcripcion.files[0]) {
 
+        // Get the URL of the transcription file
         const fileUrl = element.properties.Transcripcion.files[0].file.url;
 
+        // Extract the name from the Notion page
         const name = element.properties.Nombre.title[0].plain_text;
 
+        // Download the transcription file
         const file = await downloadTxt(fileUrl);
 
         if (!file) {
@@ -45,6 +65,7 @@ class DataController {
           return;
         }
 
+        // Read the content of the transcription file
         var transcripcion = await readTxt();
 
         if (!transcripcion) {
@@ -53,6 +74,7 @@ class DataController {
           return;
         }
 
+        // Reduce the transcription content
         transcripcion = (await reduceTranscription(transcripcion)).toString();
 
         if (!transcripcion) {
@@ -61,8 +83,10 @@ class DataController {
           return;
         }
 
+        // Write the reduced transcription to a file
         fs.createWriteStream("transcripcionresumen.txt").write(transcripcion);
 
+        // Process the transcription data using OpenAI
         const data = await DataController.processData(transcripcion);
 
         if (!data) {
@@ -70,19 +94,25 @@ class DataController {
           return;
         }
 
+        // Generate a PDF document based on the name
         await genPdf(name);
 
+        // Prepare all the updated data
         const allData = { ...data };
 
+        // Update the Notion page properties with the new data
         const newData = await notion.pages.update({
           page_id: id,
           properties: allData,
         });
 
+        // Send the candidate agreement via email
         await sendCandidateAgreement(element);
 
+        // Delete the temporary transcription file
         await deleteTxt();
 
+        // Respond with the updated data
         res.json(newData);
 
       } else {
@@ -95,32 +125,41 @@ class DataController {
     }
   }
 
+  /**
+   * Process transcription data using OpenAI and format the response.
+   *
+   * @param {string} transcripcion - The transcription data to be processed.
+   * @returns {Object} The formatted data based on OpenAI's response.
+   */
   static async processData(transcripcion) {
     try {
-     
-       const response = await openai.chat.completions.create({
-         messages: [
-           {
-           role: 'system',
-           content: "Eres un analista de seleccion, acabaste de tener estas respuestas de un candidato"+ transcripcion,
-                },
+      // Generate responses from OpenAI's chat model
+      const response = await openai.chat.completions.create({
+        messages: [
+          {
+            role: 'system',
+            content: "You are a selection analyst, and you've just received these responses from a candidate." + transcripcion,
+          },
 
-           {
-             role: 'user',
-             content: 
-             "En ingles, completa:"+
-             "Experiencia laboral : (informacion recopilada de la experiencia laboral y academica, separada por comas relacionado con desarrollo de software)"+
-             "Historial educativo : (informacion recopilada de grados o estudios y universidades o institutos)."+
-             "Aspectos que hacen que esta persona sea única : (informacion recopilada sobre que hace unico)"+
-             "Tecnologías o stack tecnológico mencionado : (lista de tecnologias, lenguajes de programacion y herramientas, separadas por comas)"+
-             "Resumen : (aca iria el resumen del candidato relacionado con habilidades blandas)."+
-             "Años Experiencia: (Numero según su experiencia o conocimientos, si no '0')"+
-             "Profesion: (Backend, Frontend, Fullstack lista separada por comas)"+
-             "Industrias: (lista de industrias en la que podria trabajar segun su experiencia o proyectos)"
-           }
-       ],
-       model: "gpt-3.5-turbo",
-      temperature: 0,
+          {
+            role: 'user',
+            content:
+              "Complete the information bellow in a single line:" +
+              "Experience: (Information collected from work and academic experience mentioning the contributions in projects, followed by text in narrative format. If the companies mentioned are consultants, exclude the names of the companies consultants and mention the final clients of the projects)" +
+              "Educational History: (Information gathered from degrees or studies and universities or institutes)." +
+              "Aspects that make this person unique: (Information gathered about what makes them unique)" +
+              "Technologies or tech stack mentioned: List of technologies, programming languages, and tools, separated by commas)" +
+              "Summary: (Here would go the candidate's summary related to soft skills)." +
+              "Years of Experience: (Number based on their experience or knowledge, if none, '0')" +
+              "Profession: (Backend, Frontend, Fullstack list separated by commas)" +
+              "Industries: (List of industries they could work in based on their experience or projects)" +
+              "Salary: (Salary range. example:  $70/80)" +
+              "Strong tech stack: List of technologies in which have the most experience, programming languages, and tools, separated by commas)"
+          }
+        ],
+
+        model: "gpt-3.5-turbo",
+        temperature: 0,
       });
 
       // const response = {
@@ -139,12 +178,15 @@ class DataController {
       //   ],
       // };
 
+      // Extract the response content
       const respuesta = response.choices[0].message.content;
 
       console.log(respuesta);
 
+      // Write the response to a file
       fs.createWriteStream("respuesta.txt").write(respuesta);
 
+      // Format the response data
       const dataFormated = formatData(respuesta);
 
       return dataFormated;

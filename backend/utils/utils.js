@@ -1,21 +1,36 @@
-import axios from "axios";
-import fs from "fs";
-import { jsPDF } from "jspdf";
-import { promises as pr } from "fs";
-import nodemailer from "nodemailer";
+/**
+ * Imports necessary libraries and modules for the application.
+ */
+import axios from "axios"; // For making HTTP requests
+import fs from "fs"; // For file system operations
+import { jsPDF } from "jspdf"; // For generating PDF documents
+import { promises as pr } from "fs"; // Promisified file system operations
+import nodemailer from "nodemailer"; // For sending emails
 
+/**
+ * Reduces a transcription by extracting specific lines.
+ *
+ * @param {string} transcripcion - The transcription text to be processed.
+ * @returns {string} The reduced transcription text.
+ */
 async function reduceTranscription(transcripcion) {
   const regex = /^(\d+:\d+) (?!Santiago Martinez:)(.+)$/gm;
 
   const resultados = [];
   let match;
   while ((match = regex.exec(transcripcion)) !== null) {
-    resultados.push(`${match[1]} ${match[2]}`);
+    resultados.push(`${match[2].split(":")[1]}`);
   }
 
   return resultados.join("\n");
 }
 
+/**
+ * Downloads a text file from a given URL.
+ *
+ * @param {string} fileUrl - The URL of the file to be downloaded.
+ * @returns {Promise<boolean>} A Promise that resolves to true on successful download or false on error.
+ */
 function downloadTxt(fileUrl) {
   return new Promise((resolve, reject) => {
     axios({
@@ -43,6 +58,11 @@ function downloadTxt(fileUrl) {
 
 }
 
+/**
+ * Deletes a text file.
+ *
+ * @returns {boolean} True on successful deletion, false on error.
+ */
 function deleteTxt() {
   fs.unlink("transcripcion.txt", (err) => {
     if (err) {
@@ -53,7 +73,15 @@ function deleteTxt() {
   });
 }
 
+/**
+ * Formats data into a specific structure.
+ *
+ * @param {string} data - The data to be formatted.
+ * @returns {Object} The formatted data in a specific structure.
+ */
 function formatData(data) {
+
+  // Split the data into an array and remove empty lines
   const dataArrTmp = data.split("\n");
   const dataArr = [];
 
@@ -63,7 +91,9 @@ function formatData(data) {
     }
   }
 
+  // Extract and format specific data points
   const TechStack = dataArr[3].split(":")[1].split(",").map(stack => ({ name: stack.replace(".", "") }));
+  const sTechS = dataArr[9].split(":")[1].split(",").map(stack => ({ name: stack.replace(".", "") }));
   const positions = dataArr[6].split(":")[1].split(",").map(position => ({ name: position.replace(".", "") }));
   const industrias = dataArr[7].split(":")[1].split(",").map(industria => ({ name: industria.replace(".", "") }));
 
@@ -79,6 +109,9 @@ function formatData(data) {
     },
     "Tech Stack": {
       multi_select: TechStack,
+    },
+    "Tech Stack especializado": {
+      multi_select: sTechS,
     },
     "Experiencia Laboral": {
       rich_text: [
@@ -116,18 +149,23 @@ function formatData(data) {
     Industria: {
       multi_select: industrias,
     },
-    // "Candidate Agreement": {
-    //   rich_text: [
-    //     {
-    //       text: {
-    //         content: "New Summary",//transcripcionArray[0],
-    //       },
-    //     },
-    //   ],
-    // },
+    "Salary Expected": {
+      rich_text: [
+        {
+          text: {
+            content: dataArr[8].split(":")[1],
+          },
+        },
+      ],
+    },
   };
 }
 
+/**
+ * Reads the contents of a text file.
+ *
+ * @returns {Promise<string | undefined>} A Promise that resolves to the file contents or undefined on error.
+ */
 async function readTxt() {
     try {
         const data = await pr.readFile('transcripcion.txt', 'utf8');
@@ -139,7 +177,11 @@ async function readTxt() {
 }
 
 
-
+/**
+ * Sends a candidate agreement via email.
+ *
+ * @param {Object} user - The user object containing email and other properties.
+ */
 async function sendCandidateAgreement(user) {
 
   const email = user.properties["Correo electrónico"].email;
