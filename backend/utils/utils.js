@@ -63,11 +63,14 @@ function formatData(data) {
   const dataArrTmp = data.split("\n");
   const dataArr = [];
 
+
+
   for (data in dataArrTmp) {
     if (dataArrTmp[data] !== "") {
       dataArr.push(dataArrTmp[data]);
     }
   }
+
 
   // Extract and format specific data points
   const TechStack = dataArr[3].split(":")[1].split(",").map(stack => ({ name: stack.replace(".", "") }));

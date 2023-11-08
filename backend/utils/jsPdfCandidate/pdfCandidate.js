@@ -13,11 +13,13 @@ import { logoImg } from "./images/logoImg.js";
 import { netImg } from "./images/netImg.js";
 import { soonImg } from "./images/soonImg.js";
 import { toolImg } from "./images/toolImg.js";
+import { format } from "./date.js";
 
 function genPdf(name) {
     const doc = new jsPDF();
-    const currentDate = new Date();
-    const formattedDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
+    //const currentDate = new Date();
+    //const formattedDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
+    const formattedDate = format;
 
     //1_page
     doc.setFontSize(30);

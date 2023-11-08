@@ -38,6 +38,8 @@ class DataController {
         page_id: id,
       });
 
+      
+
       // Check if the page contains a transcription file
       if (element.properties.Transcripcion.files[0]) {
 
@@ -140,12 +142,12 @@ class DataController {
               "Profession: (Backend, Frontend, Fullstack list separated by commas)" +
               "Industries: (List of industries they could work in based on their experience or projects)" +
               "Salary: (Salary range. example:  $70/80)" +
-              "Strong tech stack: List of technologies in which have the most experience, programming languages, and tools, separated by commas)"
+              "Strong tech stack: List of technologies in which have the most experience, separated by commas)"
           }
         ],
 
         model: "gpt-3.5-turbo",
-        temperature: 0,
+        temperature: 0.1,
       });
 
       // const response = {
