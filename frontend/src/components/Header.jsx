@@ -1,9 +1,12 @@
 import useAuth from "../hooks/useAuth";
+import useCandidatos from "../hooks/useCandidatos";
 
 const Header = () => {
   const { cerrarSesionAuth } = useAuth();
+  const { cerrarSesionCandidato } = useCandidatos();
+  
   const handleCerrarSesion = () => {
-    cerrarSesionProyectos();
+    cerrarSesionCandidato();
     cerrarSesionAuth();
     localStorage.removeItem("token");
     // console.log(err)
@@ -12,7 +15,7 @@ const Header = () => {
   return (
     <header className="px-4 py-5 bg-dark-gray ">
       <div className="md:flex md:justify-between items-center">
-        <h2 className="text-5xl  text-center text-white">
+        <h2 className="font-titan text-5xl  text-center text-white">
           auto<span className="font-dark-green">&lt;</span><span className="font-lila">mate</span>
           <span className="font-dark-green">&gt;</span>
         </h2>
