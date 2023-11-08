@@ -37,7 +37,7 @@ const Login = () => {
       localStorage.setItem('token', data.token)
       setAuth(data)
       // Redirige al usuario a la página de proyectos
-      navigate('/proyectos');
+      navigate('/home');
     } catch (error) {
       // Maneja los errores de inicio de sesión
       setAlerta({

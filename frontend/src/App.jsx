@@ -3,15 +3,11 @@ import AuthLayout from './layouts/AuthLayout'
 import RutaProtegida from './layouts/RutaProtegida'
 
 import Login from './paginas/Login'
-import Registrar from './paginas/Registrar'
 import Nuevopassword from './paginas/Nuevopassword'
 import Olvidepassword from './paginas/Olvidepassword'
-import ComfirmarCuenta from './paginas/ComfirmarCuenta'
-import Proyectos from './paginas/Proyectos'
-import NuevoProyecto from './paginas/NuevoProyecto'
-import Proyecto from './paginas/Proyecto'
-import EditarProyecto from './paginas/EditarProyecto'
-import Texterror from './paginas/Texterror'
+import ConfirmarCuenta from './paginas/ConfirmarCuenta'
+import Bienvenido from './paginas/Bienvenido'
+import Procesar from './paginas/Candidato'
 
 import {AuthProvider} from './context/AuthProvider'
 import {ProyectosProvider} from "./context/ProyectosProvider"
@@ -24,18 +20,14 @@ function App() {
           <Routes>
             <Route path="/" element={<AuthLayout />}>
             <Route index element={<Login />} />
-            <Route path='registrar' element={<Registrar />} />
             <Route path='olvidepassword' element={<Olvidepassword />} />
             <Route path='olvidepassword/:token' element={<Nuevopassword />} />
-            <Route path='confirmar/:id' element={<ComfirmarCuenta />} />
+            <Route path='confirmar/:id' element={<ConfirmarCuenta />} />
             </Route>
 
-            <Route path="/proyectos" element={<RutaProtegida />}>
-              <Route index element={<Proyectos />} />
-              <Route path="crear-proyecto" element={<NuevoProyecto />} />
-              <Route path=":id" element={<Proyecto />} />
-              <Route path="editar/:id" element={<EditarProyecto />} />
-              <Route path="texterror"element={Texterror  }></Route> 
+            <Route path="/home" element={<RutaProtegida />}>
+              <Route index element={<Bienvenido />} />
+              <Route path=":id" element={<Procesar />} />
             </Route>
           </Routes>
           </ProyectosProvider>

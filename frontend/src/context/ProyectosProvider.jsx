@@ -74,7 +74,7 @@ const ProyectosProvider = ({children}) => {
             })
             setTimeout(() =>{
                 setAlerta({})
-                navigate('/proyectos')
+                navigate('/home')
             }, 3000);
 
         } catch (error) {
@@ -102,7 +102,7 @@ const ProyectosProvider = ({children}) => {
             })
             setTimeout(() =>{
                 setAlerta({})
-                navigate('/proyectos')
+                navigate('/home')
             }, 3000);
 
         } catch (error) {
@@ -156,7 +156,7 @@ const ProyectosProvider = ({children}) => {
 
             setTimeout(() => {
                 setAlerta({})
-                navigate("/proyectos")
+                navigate("/home")
             }, 3000)
         } catch (error) {
             console.log(error)
