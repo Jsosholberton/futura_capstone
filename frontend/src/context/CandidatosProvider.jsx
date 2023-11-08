@@ -36,14 +36,14 @@ const CandidatosProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data} = await axios(
+      const { data } = await axios(
         `http://localhost:4000/api/candidates/process/${id}`,
         config
       );
-      console.log(data)
-      setCandidato(data);
+      setCandidato(data.properties);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      setCandidato({error:error.response.data})
     }
     setCargando(false);
   };
