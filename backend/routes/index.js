@@ -17,5 +17,6 @@ const router = express.Router();
  * @param {Function} DataController.updateNotionData - The controller method that handles the route.
  */
 router.get('/process/:id', DataController.updateNotionData);
+router.get('/send-email/:id', DataController.sendAgreement);
 
 export default router;

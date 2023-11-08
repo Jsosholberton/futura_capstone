@@ -1,4 +1,9 @@
-// Define a function to format a date into a more human-readable format
+/**
+ * Formats a date into a more human-readable format.
+ *
+ * @param {Date} date - The date to be formatted.
+ * @returns {string} The formatted date as a string, e.g., "October 25th 2023".
+ */
 function formatDate(date) {
   // Define an array of month names
   const months = [
@@ -18,7 +23,12 @@ function formatDate(date) {
   return `${month} ${dayWithSuffix} ${year}`;
 }
 
-// Define a function to add suffixes to day numbers (e.g., "st", "nd", "rd", or "th")
+/**
+ * Adds suffixes to day numbers (e.g., "st", "nd", "rd", or "th").
+ *
+ * @param {number} day - The day number to which a suffix is added.
+ * @returns {string} The day with the appropriate suffix.
+ */
 function getDayWithSuffix(day) {
   // Define an array of suffixes for day numbers
   const suffixes = ['th', 'st', 'nd', 'rd'];
@@ -35,13 +45,18 @@ function getDayWithSuffix(day) {
   }
 }
 
-// Create a new Date object for the current date
+/**
+ * Creates a new Date object for the current date and formats it.
+ *
+ * @type {Date} currentDate - A new Date object for the current date.
+ * @type {string} format - The formatted date as a string.
+ */
 const currentDate = new Date();
-
-// Format the current date using the formatDate function
 const format = formatDate(currentDate);
 
-// Export the formatted date for use in other parts of the application
+/**
+ * Exports the formatted date for use in other parts of the application.
+ */
 export {
   format,
 };

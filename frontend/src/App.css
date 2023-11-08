@@ -12,10 +12,26 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #07b50c);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+.bg-dark-gray {
+  background-color: #4B4453;
+
+}
+.font-light-green {
+  color: #00B798;
+}
+.font-dark-green {
+  color: #008065;
+}
+.bg-light-gray {
+  background-color: #B0A8B9;
+}
+.font-lila {
+  color: #7B50C2;
 }
 
 @keyframes logo-spin {

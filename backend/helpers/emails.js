@@ -1,7 +1,13 @@
 import nodemailer from "nodemailer";
 
+/**
+ * Send a registration email with a confirmation link.
+ * @param {Object} datos - Data for the registration email.
+ */
 export const emailReg = async (datos) => {
   const { email, name, token } = datos;
+
+  // Create a transport configuration for sending email
   const transport = nodemailer.createTransport({
     host: "sandbox.smtp.mailtrap.io",
     port: 2525,
@@ -11,11 +17,12 @@ export const emailReg = async (datos) => {
     },
   });
 
+  // Compose and send the registration confirmation email
   const info = await transport.sendMail({
-    from: '"Futura - Admin" <correo@Futura.com>',
-    to: email,
-    subject: "Futura - Confirm your account",
-    text: "Confirm your account on Futura",
+    from: '"Futura - Admin" <correo@Futura.com>', // Sender's information
+    to: email, // Recipient's email
+    subject: "Futura - Confirm your account", // Email subject
+    text: "Confirm your account on Futura", // Plain text version of the email
     html: `<p>Hi: ${name} confirm your account on Futura</p>
     <p>Your account is almost ready you just have to confirm in the next link:
     <a href="${process.env.FRONTEND_URL}confirmar/${token}">Confirm the account</a> </p>
@@ -24,8 +31,14 @@ export const emailReg = async (datos) => {
   });
 };
 
+/**
+ * Send a password reset email with a link to reset your password.
+ * @param {Object} datos - Data for the password reset email.
+ */
 export const emailPwd = async (datos) => {
     const { email, name, token } = datos;
+
+    // Create a transport configuration for sending the password restoration email
     const transport = nodemailer.createTransport({
       host: "sandbox.smtp.mailtrap.io",
       port: 2525,
@@ -34,12 +47,13 @@ export const emailPwd = async (datos) => {
         pass: "dad88d9b1587b2",
       },
     });
-  
+
+    // Compose and send the password restoration email
     const info = await transport.sendMail({
-      from: '"Futura - Admin" <correo@Futura.com>',
-      to: email,
-      subject: "Futura - Confirm your account",
-      text: "Restore your password on Futura",
+      from: '"Futura - Admin" <correo@Futura.com>', // Sender's information
+      to: email, // Recipient's email
+      subject: "Futura - Confirm your account", // Email subject
+      text: "Restore your password on Futura", // Plain text version of the email
       html: `<p>Hi: ${name} restore your password from your account on Futura</p>
       <p>Follow the next link to restore your password:
       <a href="${process.env.FRONTEND_URL}olvidepassword/${token}">Restore</a> </p>

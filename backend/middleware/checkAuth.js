@@ -1,3 +1,4 @@
+// Import the 'jsonwebtoken' library, which is used for generating JSON Web Tokens.
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
@@ -22,8 +23,11 @@ const checkAuth = async (req, res, next) => {
             // Verify the JWT token using the JWT_SECRET from environment variables
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+            // Find the user associated with the decoded 'id' and exclude sensitive information.
+
             // Retrieve the user associated with the token and exclude sensitive information
             req.user = await User.findById(decoded.id).select("-password -confirm -token -createdAt -updatedAt -__v");
+            // Continue to the next middleware or route.
             return next();
         } catch (err) {
             return res.status(404).json({ msg: "Something went wrong!" });

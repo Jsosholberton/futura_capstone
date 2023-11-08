@@ -1,4 +1,7 @@
-import mongoose from "mongoose";
+// Import the 'mongoose' library for working with MongoDB.
+import mongoose from "mongoose"; 
+
+// Import the 'bcrypt' library for password hashing and comparison.
 import bcrypt from "bcrypt";
 
 /**

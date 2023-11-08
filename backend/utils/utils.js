@@ -1,10 +1,18 @@
+/**
+ * Imports necessary libraries and modules for the application.
+ */
 import axios from "axios"; // For making HTTP requests
 import fs from "fs"; // For file system operations
 import { jsPDF } from "jspdf"; // For generating PDF documents
 import { promises as pr } from "fs"; // Promisified file system operations
 import nodemailer from "nodemailer"; // For sending emails
 
-// Define a function to reduce transcription by extracting certain lines
+/**
+ * Reduces a transcription by extracting specific lines.
+ *
+ * @param {string} transcripcion - The transcription text to be processed.
+ * @returns {string} The reduced transcription text.
+ */
 async function reduceTranscription(transcripcion) {
   const regex = /^(\d+:\d+) (?!Santiago Martinez:)(.+)$/gm;
 
@@ -17,7 +25,12 @@ async function reduceTranscription(transcripcion) {
   return resultados.join("\n");
 }
 
-// Define a function to download a file from a given URL
+/**
+ * Downloads a text file from a given URL.
+ *
+ * @param {string} fileUrl - The URL of the file to be downloaded.
+ * @returns {Promise<boolean>} A Promise that resolves to true on successful download or false on error.
+ */
 function downloadTxt(fileUrl) {
   return new Promise((resolve, reject) => {
     axios({
@@ -45,7 +58,11 @@ function downloadTxt(fileUrl) {
 
 }
 
-// Define a function to delete a text file
+/**
+ * Deletes a text file.
+ *
+ * @returns {boolean} True on successful deletion, false on error.
+ */
 function deleteTxt() {
   fs.unlink("transcripcion.txt", (err) => {
     if (err) {
@@ -56,7 +73,12 @@ function deleteTxt() {
   });
 }
 
-// Define a function to format data into a specific structure
+/**
+ * Formats data into a specific structure.
+ *
+ * @param {string} data - The data to be formatted.
+ * @returns {Object} The formatted data in a specific structure.
+ */
 function formatData(data) {
 
   // Split the data into an array and remove empty lines
@@ -142,7 +164,11 @@ function formatData(data) {
   };
 }
 
-// Define a function to read the contents of a text file
+/**
+ * Reads the contents of a text file.
+ *
+ * @returns {Promise<string | undefined>} A Promise that resolves to the file contents or undefined on error.
+ */
 async function readTxt() {
     try {
         const data = await pr.readFile('transcripcion.txt', 'utf8');
@@ -154,7 +180,11 @@ async function readTxt() {
 }
 
 
-// Define a function to send a candidate agreement via email
+/**
+ * Sends a candidate agreement via email.
+ *
+ * @param {Object} user - The user object containing email and other properties.
+ */
 async function sendCandidateAgreement(user) {
 
   const email = user.properties["Correo electrónico"].email;

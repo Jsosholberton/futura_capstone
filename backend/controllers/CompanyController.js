@@ -21,8 +21,6 @@ class CompanyController {
      * Static method to send emails to companies with copies of candidates
      * @param {Object} req - Purpose of express request.
      * @param {Object} res - Express response object.
-     * @returns {void}
-     * @throws {Error} If an error occurs during the process.
      */
     static async sendEmail(req, res){
         const { id } = req.params;
@@ -64,8 +62,6 @@ class CompanyController {
      * Static method for sending candidate copy emails to a specific company.
      * @param {string} copies - Copies of candidates in text format.
      * @param {Object} company - Object that represents the company.
-     * @returns {void}
-     * @throws {Error} If there is an error during the process.
      */
     static async sendCandidateCopies(copies, company) {
 

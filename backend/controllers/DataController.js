@@ -1,3 +1,6 @@
+/**
+ * Imports necessary libraries and modules for the application.
+ */
 import { Client } from "@notionhq/client"; // Import the Notion API client
 import dotenv from "dotenv"; // Import the dotenv module for environment variables
 import OpenAI from "openai"; // Import the OpenAI library
@@ -28,7 +31,13 @@ const notion = new Client({
 // Define the DataController class
 class DataController {
 
-  // Static method to update data in Notion
+  /**
+   * Updates Notion data based on transcription and sends a candidate agreement via email.
+   *
+   * @param {Request} req - The request object.
+   * @param {Response} res - The response object.
+   * @returns {Response} The response object.
+   */
   static async updateNotionData(req, res) {
     const { id } = req.params;
 
@@ -38,7 +47,8 @@ class DataController {
         page_id: id,
       });
 
-      
+
+      fs.createWriteStream("datos.txt").write(JSON.stringify(element, null, 2));
 
       // Check if the page contains a transcription file
       if (element.properties.Transcripcion.files[0]) {
@@ -99,9 +109,6 @@ class DataController {
           properties: allData,
         });
 
-        // Send the candidate agreement via email
-        await sendCandidateAgreement(element);
-
         // Delete the temporary transcription file
         await deleteTxt();
 
@@ -118,7 +125,12 @@ class DataController {
     }
   }
 
-  // Static method to process transcription data using OpenAI
+  /**
+   * Process transcription data using OpenAI and format the response.
+   *
+   * @param {string} transcripcion - The transcription data to be processed.
+   * @returns {Object} The formatted data based on OpenAI's response.
+   */
   static async processData(transcripcion) {
     try {
       // Generate responses from OpenAI's chat model
@@ -133,7 +145,7 @@ class DataController {
             role: 'user',
             content:
               "Complete the information bellow in a single line:" +
-              "Experience: (Information collected from work and academic experience mentioning your contributions in projects, followed by text in narrative format. If the companies mentioned are consultants, exclude the names of the consultants and mention the final clients of the projects)" +
+              "Experience: (Information collected from work and academic experience mentioning the contributions in projects, followed by text in narrative format. If the companies mentioned are consultants, exclude the names of the companies consultants and mention the final clients of the projects)" +
               "Educational History: (Information gathered from degrees or studies and universities or institutes)." +
               "Aspects that make this person unique: (Information gathered about what makes them unique)" +
               "Technologies or tech stack mentioned: List of technologies, programming languages, and tools, separated by commas)" +
@@ -180,6 +192,40 @@ class DataController {
       return dataFormated;
     } catch (error) {
       console.error("Error al llamar la API de OpenAI", error);
+    }
+  }
+
+  /**
+   * Controller for sending the candidate Agreement with checkbox verification.
+   * @param {*} req
+   * @param {*} res - Confirmation message
+   */
+  static async sendAgreement(req, res) {
+    const { id } = req.params;
+
+    try {
+      const element = await notion.pages.retrieve({
+        page_id: id,
+      });
+
+      // Validates that the email has not been sent.
+      if (!element.properties["Correo Enviado"].checkbox) {
+        // Send the candidate agreement via email
+        await sendCandidateAgreement(element);
+        const newData = await notion.pages.update({
+          page_id: id,
+          properties: {"Correo Enviado": {checkbox: true}},
+        });
+  
+        res.status(200).send({msg: "Enviado correctamente"})
+
+      } else {
+        res.status(500).send({msg: "Ya se realizo el envio del correo"})
+      }
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({msg: "Correo no enviado"})
     }
   }
 }

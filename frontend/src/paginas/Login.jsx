@@ -37,7 +37,7 @@ const Login = () => {
       localStorage.setItem('token', data.token)
       setAuth(data)
       // Redirige al usuario a la página de proyectos
-      navigate('/proyectos');
+      navigate('/home');
     } catch (error) {
       // Maneja los errores de inicio de sesión
       setAlerta({
@@ -55,9 +55,9 @@ const Login = () => {
       <div className="corner-text fixed top-0 left-0 p-5">
         <h2 className="opacity-90 hover:opacity-100 text-5xl duration-500 p-5
         hover:-translate-y-1 italic text-center font-black bg-clip-text text-transparent
-        bg-gradient-to-r from-[#ffffff] via-[#d4d4d4] to-[#525252]">GOT<span className="text-transparent bg-clip-text 
-        bg-gradient-to-r from-[#4b0000] via-[#920404] to-[red] ">2</span>D<span className="text-transparent drop-shadow-2xl shadow-[#f53232] bg-clip-text 
-        bg-gradient-to-r from-[#4b0000] via-[#850404] to-[red]">O</span>
+        bg-gradient-to-r from-[#ffffff] via-[#d4d4d4] to-[#525252]">auto<span className="text-transparent bg-clip-text 
+        bg-gradient-to-r from-[#4b0000] via-[#920404] to-[red] ">&lt;</span>mate<span className="text-transparent drop-shadow-2xl shadow-[#f53232] bg-clip-text 
+        bg-gradient-to-r from-[#4b0000] via-[#850404] to-[red]">&gt;</span>
         </h2>
       </div>
       <h1 className="opacity-80 hover:opacity-100 hover:scale-105 hover:translate-x-3

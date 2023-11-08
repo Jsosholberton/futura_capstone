@@ -1,6 +1,10 @@
+// Import the jsPDF library to create PDF documents
 import { jsPDF } from "jspdf";
 
-//Import images:
+// Import date
+import { format } from "./date.js";
+
+// Import images used in the PDF
 import { agreementImg } from "./images/agreementImg.js";
 import { brainImg } from "./images/brainImg.js";
 import { confidentialityImg } from "./images/confidentialityImg.js";
@@ -15,13 +19,19 @@ import { soonImg } from "./images/soonImg.js";
 import { toolImg } from "./images/toolImg.js";
 import { format } from "./date.js";
 
+/**
+ * Generates a PDF document for a candidate agreement.
+ *
+ * @param {string} name - The name of the candidate.
+ */
 function genPdf(name) {
+    // Create a new jsPDF instance
     const doc = new jsPDF();
     //const currentDate = new Date();
     //const formattedDate = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
     const formattedDate = format;
 
-    //1_page
+    // Start creating the first page of the PDF
     doc.setFontSize(30);
     doc.setFont("helvetica", "bolditalic");
     doc.addImage(logoImg, 30, 18, 15, 15);
@@ -40,7 +50,7 @@ ${name}.`, 30, 35);
 This Agreement (the "Agreement") is entered into between Futura
 represented by Santiago Martinez Jaramillo (referred to as the "Agency")
 and ${name} (referred to as the "Candidate"),
-collectively referred to as the "Parties." On  ${formattedDate}.
+collectively referred to as the "Parties." On  ${format}.
 
 WHEREAS, the Candidate is seeking job opportunities in the software
 engineering field, and the Agency specializes in connecting
@@ -78,8 +88,7 @@ the Parties agree as follows:
     doc.text(`Futura Candidate Agreement @ ${name}`, 6, 292);
     doc.text(`1`, 200, 292);
 
-    // Página 2
-
+    // Create page 2 of the PDF
     doc.addPage("a4", "p");
     doc.addImage(handsImg, 129.5, 26.5, 4.5, 4.5);
     doc.addImage(agreementImg, 85.5, 73.5, 4.5, 4.5);
@@ -140,6 +149,7 @@ candidate can introduce them to the Agency.
     doc.text(`Futura Candidate Agreement @ ${name}`, 6, 292);
     doc.text(`2`, 200, 292);
 
+    // Create page 3 of the PDF
     doc.addPage("a4", "p");
     doc.setTextColor("#000000");
     doc.addImage(brainImg, 78.5, 26, 4.5, 4.5);
@@ -195,6 +205,7 @@ and understanding of this Agreement.
     doc.text(`Futura Candidate Agreement @ ${name}`, 6, 292);
     doc.text(`3`, 200, 292);
 
+    // Save the PDF with a specific file name
     doc.save(`downloads/${name.replace(/\s/g, "_")}.pdf`);
 };
 
