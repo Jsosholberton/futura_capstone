@@ -52,20 +52,20 @@ const Login = () => {
 
   return (
     <div className="page-container">
-      <div className="corner-text fixed top-0 left-0 p-5">
+      <div className="corner-text fixed top-0 left-0 p-2">
         <h2 className="opacity-90 hover:opacity-100 text-5xl duration-500 p-5
         hover:-translate-y-1 italic text-center font-black bg-clip-text text-transparent
-        bg-gradient-to-r from-[#ffffff] via-[#d4d4d4] to-[#525252]">auto<span className="text-transparent bg-clip-text 
-        bg-gradient-to-r from-[#4b0000] via-[#920404] to-[red] ">&lt;</span>mate<span className="text-transparent drop-shadow-2xl shadow-[#f53232] bg-clip-text 
-        bg-gradient-to-r from-[#4b0000] via-[#850404] to-[red]">&gt;</span>
+        bg-gradient-to-r from-[#ffffff] via-[#b69ddf] to-[#6c36c4]">auto<span className="text-transparent bg-clip-text 
+        text-[#008066] ">&lt;</span>mate<span className="text-transparent drop-shadow-2xl shadow-[#f53232] bg-clip-text 
+        text-[#008066]">&gt;</span>
         </h2>
       </div>
-      <h1 className="opacity-80 hover:opacity-100 hover:scale-105 hover:translate-x-3
+      <h1 className="opacity-80 hover:opacity-100 hover:scale-105 hover:translate-x-2
         duration-1000 skew-3 bg-clip-text text-transparent hover:shadow-[#f30000]
-        bg-gradient-to-br from-[#d8d8d8] via-[#dbdbdb] to-[#474747] hover:from-[#ffffff] hover:from-30% hover:via-[#ce2929] hover:duration-500 hover:to-[#df9696]
-        italic font-bold text-[2.30rem] hover:duration-1000 capitalize h-40 p-1">
+        bg-gradient-to-br from-[#d8d8d8] via-[#dbdbdb] to-[#474747] hover:from-[#ffffff] hover:from-30% hover:via-[#875dcb] hover:duration-500 hover:to-[#ffffff]
+        italic font-bold text-[2.30rem] hover:duration-1000 capitalize h-[400px] p-[86px]">
         Control yours Projects <br />& Define Your Future
-        <span className="text-[#dd2121] text-4xl ">.</span>
+        <span className="text-[#8236fe] text-4xl ">.</span>
       </h1>
 
       {/* Renderiza la alerta si existe */}
@@ -75,8 +75,8 @@ const Login = () => {
         className="delay-100 opacity-80 custom-shadow
         hover:opacity-100 hover:scale-105 translate-x-4 skew-x-1 
         md:transform-none hover:-translate-y-2 
-        hover:shadow-lg duration-700 hover:shadow-[#700000]
-        bg-gradient-to-br from-[#000000] from-1% via-[#131212] via-50% to-[#ffffff]
+        hover:shadow-lg duration-700 hover:shadow-[#6c36c4]
+        bg-gradient-to-br from-[#784fba] from-1% via-[#755d98] via-50% to-[#ffffff]
         rounded-3xl p-6"
         onSubmit={handleSubmit}
       >
@@ -123,10 +123,10 @@ const Login = () => {
           type="submit"
           className=" 
           transition-shadow opacity-70 hover:opacity-100 rounded-full
-          hover:-translate-y-2 hover:duration-1000 bg-gradient-to-r from-[#ffffff] via-[#3d3d3d] to-[#000000] hover:to-[#c40c0c]
+          hover:-translate-y-2 hover:duration-1000 bg-gradient-to-r from-[#ffffff] via-[#3d3d3d] to-[#000000] hover:to-[#6c36c4]
           italic w-full py-2
           text-white uppercase delay-75 font-medium rounded-3xl text-white shadow-inner
-          active:animate-ping pointer-events-auto hover:shadow-[#5e0005] transition-colors font-thin duration-1000"
+          active:animate-ping pointer-events-auto hover:shadow-[#6c36c4] transition-colors font-thin duration-1000"
         >
           Login
         </button>

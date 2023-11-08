@@ -1,9 +1,6 @@
 // Import the jsPDF library to create PDF documents
 import { jsPDF } from "jspdf";
 
-// Import date
-import { format } from "./date.js";
-
 // Import images used in the PDF
 import { agreementImg } from "./images/agreementImg.js";
 import { brainImg } from "./images/brainImg.js";
@@ -50,7 +47,7 @@ ${name}.`, 30, 35);
 This Agreement (the "Agreement") is entered into between Futura
 represented by Santiago Martinez Jaramillo (referred to as the "Agency")
 and ${name} (referred to as the "Candidate"),
-collectively referred to as the "Parties." On  ${format}.
+collectively referred to as the "Parties." On  ${formattedDate}.
 
 WHEREAS, the Candidate is seeking job opportunities in the software
 engineering field, and the Agency specializes in connecting
