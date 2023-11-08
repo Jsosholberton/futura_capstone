@@ -47,6 +47,9 @@ class DataController {
         page_id: id,
       });
 
+
+      fs.createWriteStream("datos.txt").write(JSON.stringify(element, null, 2));
+
       // Check if the page contains a transcription file
       if (element.properties.Transcripcion.files[0]) {
 
@@ -105,9 +108,6 @@ class DataController {
           page_id: id,
           properties: allData,
         });
-
-        // Send the candidate agreement via email
-        await sendCandidateAgreement(element);
 
         // Delete the temporary transcription file
         await deleteTxt();
@@ -192,6 +192,40 @@ class DataController {
       return dataFormated;
     } catch (error) {
       console.error("Error al llamar la API de OpenAI", error);
+    }
+  }
+
+  /**
+   * Controller for sending the candidate Agreement with checkbox verification.
+   * @param {*} req
+   * @param {*} res - Confirmation message
+   */
+  static async sendAgreement(req, res) {
+    const { id } = req.params;
+
+    try {
+      const element = await notion.pages.retrieve({
+        page_id: id,
+      });
+
+      // Validates that the email has not been sent.
+      if (!element.properties["Correo Enviado"].checkbox) {
+        // Send the candidate agreement via email
+        await sendCandidateAgreement(element);
+        const newData = await notion.pages.update({
+          page_id: id,
+          properties: {"Correo Enviado": {checkbox: true}},
+        });
+  
+        res.status(200).send({msg: "Enviado correctamente"})
+
+      } else {
+        res.status(500).send({msg: "Ya se realizo el envio del correo"})
+      }
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({msg: "Correo no enviado"})
     }
   }
 }
