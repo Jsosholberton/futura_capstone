@@ -7,16 +7,16 @@ import Nuevopassword from './paginas/Nuevopassword'
 import Olvidepassword from './paginas/Olvidepassword'
 import ConfirmarCuenta from './paginas/ConfirmarCuenta'
 import Bienvenido from './paginas/Bienvenido'
-import Procesar from './paginas/Candidato'
+import Candidato from './paginas/Candidato'
 
 import {AuthProvider} from './context/AuthProvider'
-import {ProyectosProvider} from "./context/ProyectosProvider"
+import {CandidatosProvider} from "./context/CandidatosProvider"
 
 function App() {
   return (
       <BrowserRouter>
         <AuthProvider>
-          <ProyectosProvider>
+          <CandidatosProvider>
           <Routes>
             <Route path="/" element={<AuthLayout />}>
             <Route index element={<Login />} />
@@ -27,10 +27,10 @@ function App() {
 
             <Route path="/home" element={<RutaProtegida />}>
               <Route index element={<Bienvenido />} />
-              <Route path=":id" element={<Procesar />} />
+              <Route path=":id" element={<Candidato />} />
             </Route>
           </Routes>
-          </ProyectosProvider>
+          </CandidatosProvider>
         </AuthProvider>
       </BrowserRouter>
      
