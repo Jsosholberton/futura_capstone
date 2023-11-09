@@ -67,6 +67,6 @@
 
 
 .custom-shadow {
-  box-shadow: 0 0 20px rgb(0, 0, 0), 0 0 20px rgb(0, 0, 0), 0 0 20px rgb(255, 0, 0);
+  box-shadow: 0 0 1px rgb(0, 0, 0), 0 0 20px rgb(0, 0, 0), 0 0 20px rgb(131, 49, 246);
 }
 
