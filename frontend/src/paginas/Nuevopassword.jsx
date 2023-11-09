@@ -16,7 +16,7 @@ const Nuevopassword = () => {
   useEffect(() => {
     const comprobarToken = async () => {
       try {
-        await axios(`http://localhost:4000/api/users/lost-password/${token}`)
+        await axios(`http://165.22.41.195:4000/api/users/lost-password/${token}`)
         setTokenValido(true)
       } catch (error) {
         setAlerta({
@@ -39,7 +39,7 @@ const Nuevopassword = () => {
     }
 
     try {
-      const url = `http://localhost:4000/api/users/lost-password/${token}`
+      const url = `http://165.22.41.195:4000/api/users/lost-password/${token}`
 
       const { data } = await axios.post(url, { password })
       setAlerta({
