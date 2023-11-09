@@ -1,6 +1,5 @@
 import useProyectos from "../hooks/useCandidatos";
 import { useEffect } from "react";
-import PreviewProyecto from "../components/PreviewProyecto";
 
 const Proyectos = () => {
   // const { proyectos } = useProyectos();
