@@ -52,37 +52,27 @@ const Login = () => {
 
   return (
     <div className="page-container">
-      <div className="corner-text fixed top-0 left-0 p-2">
-        <h2 className="opacity-90 hover:opacity-100 text-5xl duration-500 p-5
-        hover:-translate-y-1 italic text-center font-black bg-clip-text text-transparent
-        bg-gradient-to-r from-[#ffffff] via-[#b69ddf] to-[#6c36c4]">auto<span className="text-transparent bg-clip-text 
-        text-[#008066] ">&lt;</span>mate<span className="text-transparent drop-shadow-2xl shadow-[#f53232] bg-clip-text 
-        text-[#008066]">&gt;</span>
+      <div className="corner-text fixed top-0 my-14 mx-8">
+        <h2 className="font-titan text-5xl  text-center text-white">
+          auto<span className="font-dark-green">&lt;</span><span className="font-lila">mate</span>
+          <span className="font-dark-green">&gt;</span>
         </h2>
       </div>
-      <h1 className="opacity-80 hover:opacity-100 hover:scale-105 hover:translate-x-2
-        duration-1000 skew-3 bg-clip-text text-transparent hover:shadow-[#f30000]
-        bg-gradient-to-br from-[#d8d8d8] via-[#dbdbdb] to-[#474747] hover:from-[#ffffff] hover:from-30% hover:via-[#875dcb] hover:duration-500 hover:to-[#ffffff]
-        italic font-bold text-[2.30rem] hover:duration-1000 capitalize h-[400px] p-[86px]">
-        Control yours Projects <br />& Define Your Future
-        <span className="text-[#8236fe] text-4xl ">.</span>
-      </h1>
-
       {/* Renderiza la alerta si existe */}
       {msg && <Alerta alerta={alerta} />}
 
       <form
         className="delay-100 opacity-80 custom-shadow
-        hover:opacity-100 hover:scale-105 translate-x-4 skew-x-1 
-        md:transform-none hover:-translate-y-2 
+        hover:opacity-100 hover:scale-30 translate-x-0.2 skew-x-1 
+        md:transform-none hover:-translate-y-0.2 
         hover:shadow-lg duration-700 hover:shadow-[#6c36c4]
         bg-gradient-to-br from-[#784fba] from-1% via-[#755d98] via-50% to-[#ffffff]
-        rounded-3xl p-6"
+        rounded-3xl p-1"
         onSubmit={handleSubmit}
       >
         <div className="my-5">
           <label
-            className="uppercase text-[#d8d6d6] font-thin italic block text-xl font-bold"
+            className="uppercase text-[#d8d6d6] font-thin italic block text-lg font-bold"
             htmlFor="email"
           >
             Email
@@ -92,9 +82,9 @@ const Login = () => {
             id="email"
             type="email"
             placeholder="Email"
-            className="hover:translate-x-1  hover:duration-700 opacity-80 hover:opacity-100 mt-1 p-2 rounded-l-none hover:-translate-y-1 duration-700 shadow-inner italic shadow shadow-[#000000] rounded-xl 
+            className="hover:translate-x-0.1  hover:duration-700 opacity-80 hover:opacity-100 mt-1 p-1 rounded-l-none hover:-translate-y-0.5 duration-700 shadow-inner italic shadow shadow-[#000000] rounded-xl 
               bg-gradient-to-r from-[white] via-[#acabab] to-[#ffffff] custom-placeholder
-              w-80 focus:w-96"
+              w-80 "
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -102,7 +92,7 @@ const Login = () => {
         </div>
         <div className="my-5">
           <label
-            className="uppercase italic font-thin text-[#d8d6d6] block text-xl font-bold"
+            className="uppercase italic font-thin text-[#d8d6d6] block text-lg font-bold"
             htmlFor="password"
           >
             Password
@@ -112,7 +102,7 @@ const Login = () => {
             id="PASSWORD"
             type="password"
             placeholder="Password"
-            className="w-80 focus:w-96  hover:translate-x-1 opacity-80 hover:opacity-100 mt-3 rounded-l-none p-2 hover:-translate-y-1 duration-700 shadow-inner italic shadow-[#000000] rounded-xl 
+            className="w-80  hover:translate-x-0.5 opacity-80 hover:opacity-100 mt-1 rounded-l-none p-1 hover:-translate-y-0.5 duration-700 shadow-inner italic shadow-[#000000] rounded-xl 
             bg-gradient-to-r from-[white] via-[#acabab] to-[#ffffff] custom-placeholder"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -122,10 +112,10 @@ const Login = () => {
         <button
           type="submit"
           className=" 
-          transition-shadow opacity-70 hover:opacity-100 rounded-full
-          hover:-translate-y-2 hover:duration-1000 bg-gradient-to-r from-[#ffffff] via-[#3d3d3d] to-[#000000] hover:to-[#6c36c4]
-          italic w-full py-2
-          text-white uppercase delay-75 font-medium rounded-3xl text-white shadow-inner
+          transition-shadow text-sm  opacity-70 hover:opacity-100 rounded-full
+          hover:-translate-y-0.5 hover:duration-1000 bg-gradient-to-r from-[#ffffff] via-[#3d3d3d] to-[#000000] hover:to-[#6c36c4]
+          italic w-52 py-1.5
+          text-white mb-1 uppercase delay-75 font-medium rounded-3xl shadow-inner
           active:animate-ping pointer-events-auto hover:shadow-[#6c36c4] transition-colors font-thin duration-1000"
         >
           Login
@@ -135,7 +125,7 @@ const Login = () => {
       <nav className="lg:flex lg:justify-between">
         {/* Enlace para registrar una cuenta */}
         <Link
-          className="delay-75 opacity-90 hover:skew-x-3 hover:opacity-100 hover:scale-110 shadow-lg p-2 hover:shadow-white shadow-black-950 rounded-full block duration-500 text-center hover:-translate-y-1 my-5 text-[#ffffff] uppercase text-sm"
+          className="delay-75 opacity-90 hover:skew-x-1 hover:opacity-100 shadow-lg p-2 hover:shadow-white shadow-black-950 rounded-full block duration-500 text-center hover:-translate-y-0.5 my-6 mx-6 text-[#ffffff] uppercase text-sm"
           to="/registrar" // Reemplaza con la ruta correcta
         >
           Don't have an account? Sign up
@@ -143,7 +133,7 @@ const Login = () => {
 
         {/* Enlace para recuperar contraseña */}
         <Link
-          className="delay-75 opacity-90 hover:skew-x-3 hover:opacity-100 hover:scale-110 block duration-500 hover:-translate-y-1 text-center my-5 text-[#ffffff] shadow-lg p-2 hover:shadow-white shadow-black-950 rounded-full uppercase text-sm"
+          className="delay-75 opacity-90 hover:skew-x-1 hover:opacity-100 block duration-500 hover:-translate-y-0.5 text-center my-7 mx-2 text-[#ffffff] shadow-lg  hover:shadow-white shadow-black-950 rounded-full uppercase text-sm"
           to="/olvidepassword" // Reemplaza con la ruta correcta
         >
           Forgot your password?
