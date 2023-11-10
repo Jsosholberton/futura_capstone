@@ -13,7 +13,7 @@ const Header = () => {
   };
 
   return (
-    <header className="px-4 py-5 bg-dark-gray ">
+    <header className="px-4 py-5 bg-dark-gray">
       <div className="md:flex md:justify-between items-center">
         <h2 className="font-titan text-5xl  text-center text-white">
           auto<span className="font-dark-green">&lt;</span><span className="font-lila">mate</span>

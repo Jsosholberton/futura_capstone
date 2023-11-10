@@ -1,6 +1,5 @@
 import useProyectos from "../hooks/useCandidatos";
 import { useEffect } from "react";
-import PreviewProyecto from "../components/PreviewProyecto";
 
 const Proyectos = () => {
   // const { proyectos } = useProyectos();
@@ -11,9 +10,12 @@ const Proyectos = () => {
 
   return (
     <>
-     <div>
-      Bienvenido
-     </div>
+    <div className="py-14 rounded-xl p-10  shadow w-1/2 mx-auto backdrop-blur-sm bg-white/10">
+     <h1 className="font-light-green text-5xl font-sans">
+        <b>Welcome <br></br> to </b><span className="text-white">auto</span><span className="text-[#008065]">&lt;</span><span className="text-[#7B50C2]">mate</span><span className="text-[#008065]">&gt;</span>
+        
+     </h1> 
+    </div>
     </>
   );
 };

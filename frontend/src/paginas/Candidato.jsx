@@ -19,24 +19,9 @@ const Candidato = () => {
   const nombre = Nombre ? Nombre.title[0].plain_text : null;
 
   return cargando ? (
-    <div class="border border-white-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
-      <div class="animate-pulse flex space-x-4">
-        <div class="rounded-full bg-slate-700 h-10 w-10"></div>
-        <div class="flex-1 space-y-6 py-1">
-          <div class="h-2 bg-slate-700 rounded"></div>
-          <div class="space-y-3">
-            <div class="grid grid-cols-3 gap-4">
-              <div class="h-2 bg-slate-700 rounded col-span-2"></div>
-              <div class="h-2 bg-slate-700 rounded col-span-1"></div>
-            </div>
-            <div class="h-2 bg-slate-700 rounded"></div>
-          </div>
-        </div>
+      <div className="flex justify-center items-center h-screen mx-auto">
+        <div className="animate-spin rounded-full border-t-4 border-black-500 border-solid h-16 w-16 mx-auto"></div>
       </div>
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full border-t-4 border-black-500 border-solid h-16 w-16"></div>
-      </div>
-    </div>
   ) : error ? (
     <>
       <div className="py-14 rounded-xl p-10  shadow w-1/2 mx-auto backdrop-blur-sm bg-white/10">

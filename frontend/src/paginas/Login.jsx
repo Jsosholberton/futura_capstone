@@ -29,7 +29,7 @@ const Login = () => {
     try {
       // Envía la solicitud de inicio de sesión al servidor
       const { data } = await axios.post(
-        "http://localhost:4000/api/users/login",
+        "http://165.22.41.195:4000/api/users/login",
         { email, password }
       );
 
