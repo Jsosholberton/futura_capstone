@@ -19,7 +19,7 @@ const Olvidepassword = () => {
     }
 
     try {
-      const { data } = await axios.post(`http://localhost:4000/api/users/lost-password`, { email })
+      const { data } = await axios.post(`http://165.22.41.195:4000/api/users/lost-password`, { email })
       setAlerta({
         msg: data.msg,
         error: false
