@@ -51,9 +51,10 @@ class CompanyController {
             CompanyController.sendCandidateCopies(stringCopies, element)
 
             // Respond with a success status
-            res.status(200).send("Funciona")
+            res.status(200).send({msg: "Emails sent successfully"})
 
         } catch (error) {
+            res.status(500).send({msg: "Error sending emails"})
             console.log(error)
         }
     }

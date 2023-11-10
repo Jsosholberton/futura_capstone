@@ -8,6 +8,8 @@ import Olvidepassword from './paginas/Olvidepassword'
 import ConfirmarCuenta from './paginas/ConfirmarCuenta'
 import Bienvenido from './paginas/Bienvenido'
 import Candidato from './paginas/Candidato'
+import EnvioCorreoCandidato from './paginas/EnvioCorreoCandidato'
+import EnvioCorreoCompania from './paginas/EnvioCorreoCompania'
 
 import {AuthProvider} from './context/AuthProvider'
 import {CandidatosProvider} from "./context/CandidatosProvider"
@@ -28,14 +30,13 @@ function App() {
             <Route path="/home" element={<RutaProtegida />}>
               <Route index element={<Bienvenido />} />
               <Route path=":id" element={<Candidato />} />
+              <Route path="enviar-correo/:id" element={<EnvioCorreoCandidato />} />
+              <Route path="companias/enviar-correo/:id" element={<EnvioCorreoCompania />} />
             </Route>
           </Routes>
           </CandidatosProvider>
         </AuthProvider>
       </BrowserRouter>
-     
-     
-    
   )
 }
 
