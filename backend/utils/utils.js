@@ -3,7 +3,6 @@
  */
 import axios from "axios"; // For making HTTP requests
 import fs from "fs"; // For file system operations
-import { jsPDF } from "jspdf"; // For generating PDF documents
 import { promises as pr } from "fs"; // Promisified file system operations
 import nodemailer from "nodemailer"; // For sending emails
 
@@ -14,7 +13,7 @@ import nodemailer from "nodemailer"; // For sending emails
  * @returns {string} The reduced transcription text.
  */
 async function reduceTranscription(transcripcion) {
-  const regex = /^(\d+:\d+) (?!Santiago Martinez:)(.+)$/gm;
+  const regex = /^(\d+:\d+) (?!Santiago Martinez:)(.+)$/gm; // Name of the interviewer
 
   const resultados = [];
   let match;
@@ -42,10 +41,10 @@ function downloadTxt(fileUrl) {
         const writer = fs.createWriteStream("transcripcion.txt");
         response.data.pipe(writer);
 
-        writer.on('finish', () => {
+        writer.on("finish", () => {
           resolve(true);
         });
-        writer.on('error', (error) => {
+        writer.on("error", (error) => {
           console.error("Error al descargar el archivo: " + error.message);
           reject(false);
         });
@@ -55,7 +54,6 @@ function downloadTxt(fileUrl) {
         reject(false);
       });
   });
-
 }
 
 /**
@@ -80,12 +78,9 @@ function deleteTxt() {
  * @returns {Object} The formatted data in a specific structure.
  */
 function formatData(data) {
-
   // Split the data into an array and remove empty lines
   const dataArrTmp = data.split("\n");
   const dataArr = [];
-
-
 
   for (data in dataArrTmp) {
     if (dataArrTmp[data] !== "") {
@@ -93,12 +88,23 @@ function formatData(data) {
     }
   }
 
-
   // Extract and format specific data points
-  const TechStack = dataArr[3].split(":")[1].split(",").map(stack => ({ name: stack.replace(".", "") }));
-  const sTechS = dataArr[9].split(":")[1].split(",").map(stack => ({ name: stack.replace(".", "") }));
-  const positions = dataArr[6].split(":")[1].split(",").map(position => ({ name: position.replace(".", "") }));
-  const industrias = dataArr[7].split(":")[1].split(",").map(industria => ({ name: industria.replace(".", "") }));
+  const TechStack = dataArr[3]
+    .split(":")[1]
+    .split(",")
+    .map((stack) => ({ name: stack.replace(".", "") }));
+  const sTechS = dataArr[9]
+    .split(":")[1]
+    .split(",")
+    .map((stack) => ({ name: stack.replace(".", "") }));
+  const positions = dataArr[6]
+    .split(":")[1]
+    .split(",")
+    .map((position) => ({ name: position.replace(".", "") }));
+  const industrias = dataArr[7]
+    .split(":")[1]
+    .split(",")
+    .map((industria) => ({ name: industria.replace(".", "") }));
 
   return {
     "Que lo hace único?": {
@@ -170,15 +176,14 @@ function formatData(data) {
  * @returns {Promise<string | undefined>} A Promise that resolves to the file contents or undefined on error.
  */
 async function readTxt() {
-    try {
-        const data = await pr.readFile('transcripcion.txt', 'utf8');
-        return data;
-      } catch (err) {
-        console.error('Error al leer el archivo:', err);
-        return undefined;
-      }
+  try {
+    const data = await pr.readFile("transcripcion.txt", "utf8");
+    return data;
+  } catch (err) {
+    console.error("Error al leer el archivo:", err);
+    return undefined;
+  }
 }
-
 
 /**
  * Sends a candidate agreement via email.
@@ -186,7 +191,6 @@ async function readTxt() {
  * @param {Object} user - The user object containing email and other properties.
  */
 async function sendCandidateAgreement(user) {
-
   const email = user.properties["Correo electrónico"].email;
 
   const name = user.properties.Nombre.title[0].plain_text;
@@ -198,10 +202,10 @@ async function sendCandidateAgreement(user) {
     port: 465,
     secure: true,
     auth: {
-        user: "enviocorreopdf@gmail.com",
-        pass: "diaq xmru ndzt lwzp",
+      user: "enviocorreopdf@gmail.com",
+      pass: "diaq xmru ndzt lwzp",
     },
-});
+  });
 
   const info = await transporter.sendMail({
     from: "enviocorreopdf@gmail.com",
@@ -210,16 +214,15 @@ async function sendCandidateAgreement(user) {
     text: `Hola ${name}, este es el acuerdo de candidato...`,
     attachments: [
       {
-          filename: fileName,
-          path: `./downloads/${fileName}`,
-          encoding: "utf-8"
-      }
-    ]
+        filename: fileName,
+        path: `./downloads/${fileName}`,
+        encoding: "utf-8",
+      },
+    ],
   });
 
   console.log("Message sent: %s", info.messageId);
 }
-
 
 export {
   reduceTranscription,
