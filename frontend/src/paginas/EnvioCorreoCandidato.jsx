@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const EnvioCorreoCandidato = () => {
@@ -25,7 +25,7 @@ const EnvioCorreoCandidato = () => {
         },
       };
       const { data } = await axios.get(
-        `http://165.22.41.195:4000/api/candidates/send-email/${id}`,
+        `https://futura-capstone-sadp.vercel.app/api/candidates/send-email/${id}`,
         config
       );
       setResponse(data.msg);

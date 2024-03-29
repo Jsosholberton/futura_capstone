@@ -29,7 +29,7 @@ const Login = () => {
     try {
       // Envía la solicitud de inicio de sesión al servidor
       const { data } = await axios.post(
-        "https://johnatanortiz.tech/api/users/login",
+        "https://futura-capstone-sadp.vercel.app/api/users/login",
         { email, password }
       );
 

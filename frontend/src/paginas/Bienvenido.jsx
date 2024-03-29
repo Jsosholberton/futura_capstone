@@ -1,4 +1,3 @@
-import useProyectos from "../hooks/useCandidatos";
 import { useEffect } from "react";
 
 const Proyectos = () => {

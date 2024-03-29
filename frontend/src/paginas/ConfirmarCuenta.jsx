@@ -15,7 +15,7 @@ const ConfirmarCuenta = () => {
   useEffect(() => {
     const confirmarCuenta = async () => {
       try {
-        const url = `http://165.22.41.195:4000/api/users/confirm/${id}`
+        const url = `https://futura-capstone-sadp.vercel.app/api/users/confirm/${id}`
         const { data } = await axios(url)
         console.log(data)
         setAlerta({

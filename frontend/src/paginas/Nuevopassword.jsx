@@ -16,7 +16,7 @@ const Nuevopassword = () => {
   useEffect(() => {
     const comprobarToken = async () => {
       try {
-        await axios(`http://165.22.41.195:4000/api/users/lost-password/${token}`)
+        await axios(`https://futura-capstone-sadp.vercel.app/api/users/lost-password/${token}`)
         setTokenValido(true)
       } catch (error) {
         setAlerta({
