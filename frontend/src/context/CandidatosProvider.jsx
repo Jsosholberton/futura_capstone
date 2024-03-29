@@ -37,7 +37,7 @@ const CandidatosProvider = ({ children }) => {
         },
       };
       const { data } = await axios(
-        `http://165.22.41.195:4000/api/candidates/process/${id}`,
+        `http://localhost:4000/api/candidates/process/${id}`,
         config
       );
       setCandidato(data.properties);

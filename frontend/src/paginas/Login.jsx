@@ -29,7 +29,7 @@ const Login = () => {
     try {
       // Envía la solicitud de inicio de sesión al servidor
       const { data } = await axios.post(
-        "http://165.22.41.195:4000/api/users/login",
+        "https://johnatanortiz.tech/api/users/login",
         { email, password }
       );
 

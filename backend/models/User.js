@@ -36,7 +36,19 @@ const userSchema = mongoose.Schema({
         required: false,
         trim: true,
         unique: true,
-    }
+    },
+    notion: {
+        type: String,
+        required: false,
+        trim: true,
+        unique: true,
+    },
+    gpt: {
+        type: String,
+        required: false,
+        trim: true,
+        unique: true,
+    },
 }, {
     timestamps: true,
 });

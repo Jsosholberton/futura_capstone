@@ -11,9 +11,6 @@ const Candidato = () => {
     obtenerCandidato(params.id);
   }, []);
 
-  // const { name, deadLine, description, client } =
-  console.log(candidato);
-
   const { Nombre, error } = candidato;
 
   const nombre = Nombre ? Nombre.title[0].plain_text : null;

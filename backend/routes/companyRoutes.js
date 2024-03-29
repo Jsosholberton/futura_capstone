@@ -16,6 +16,7 @@ const router = express.Router();
  * @param {string} '/send-email/:id' - The URL path for sending an email to a company.
  * @param {Function} CompanyController.sendEmail - The controller method that handles the route.
  */
-router.get('/send-email/:id', CompanyController.sendEmail);
+router.get('/send-email/:id', CompanyController.preloadEmailForm);
+router.post('/send-email/:id', CompanyController.sendEmail);
 
 export default router;

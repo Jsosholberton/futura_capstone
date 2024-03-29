@@ -25,7 +25,7 @@ const AuthProvider = ({children}) => {
                 }
             }
             try {
-                const { data }  = await axios('http://165.22.41.195:4000/api/users/profile', config)
+                const { data }  = await axios('http://localhost:4000/api/users/profile', config)
                 setAuth(data)
                 //  navigate('/home')
             } catch (error) {
