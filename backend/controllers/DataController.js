@@ -14,7 +14,7 @@ import {
   deleteTxt,
   sendCandidateAgreement,
 } from "../utils/utils.js";
-import User from "../models/User.js";
+// import User from "../models/User.js";
 
 // Load environment variables from a .env file (dotenv)
 dotenv.config();
@@ -40,18 +40,18 @@ class DataController {
     const { id } = req.params;
     var transcripcion = "";
 
-    const { userID } = req.body;
+    // const { userID } = req.body;
 
-    const user = User.findById(userID);
+    // const user = User.findById(userID);
 
-    const { gpt, notion: notiontoken } = user;
+    // const { gpt, notion: notiontoken } = user;
 
-    const openai = new OpenAI({ key: gpt });
+    // const openai = new OpenAI({ key: gpt });
 
     // Create a Notion client with authentication
-    const notion = new Client({
-      auth: notiontoken,
-    });
+    // const notion = new Client({
+    //   auth: notiontoken,
+    // });
 
     try {
       // Retrieve a Notion page by its page_id
