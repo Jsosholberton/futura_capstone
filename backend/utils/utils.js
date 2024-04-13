@@ -208,7 +208,9 @@ async function sendCandidateAgreement(agreement, user) {
     },
   });
 
+/*
   const agreementBuffer = Buffer.from(agreement, "base64");
+*/
 
   const info = await transporter.sendMail({
     from: "enviocorreopdf@gmail.com",
@@ -218,7 +220,7 @@ async function sendCandidateAgreement(agreement, user) {
     attachments: [
       {
         filename: fileName,
-        content: agreementBuffer,
+        content: agreement,
       },
     ],
   });
