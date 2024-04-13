@@ -198,6 +198,8 @@ async function sendCandidateAgreement(agreement, user) {
 
   const fileName = `${name.replace(/\s/g, "_")}.pdf`;
 
+  const buffer = await agreement.arrayBuffer()
+
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -220,7 +222,7 @@ async function sendCandidateAgreement(agreement, user) {
     attachments: [
       {
         filename: fileName,
-        content: agreement,
+        content: buffer,
       },
     ],
   });
