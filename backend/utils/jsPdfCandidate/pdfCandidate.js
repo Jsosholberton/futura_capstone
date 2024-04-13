@@ -203,7 +203,9 @@ and understanding of this Agreement.
     doc.text(`3`, 200, 292);
 
     // Save the PDF with a specific file name
-    doc.save(`downloads/${name.replace(/\s/g, "_")}.pdf`);
+/*    doc.save(`downloads/${name.replace(/\s/g, "_")}.pdf`);*/
+    const blobPDF =  new Blob([ doc.output() ], { type : 'application/pdf'});
+    return blobPDF;
 };
 
 export {

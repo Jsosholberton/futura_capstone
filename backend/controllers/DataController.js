@@ -59,8 +59,6 @@ class DataController {
         page_id: id,
       });
 
-      // Extract the name from the Notion page
-      const name = element.properties.Nombre.title[0].plain_text;
 
       // Check if the page contains a transcription file
       if (element.properties.Transcripcion.files[0]) {
@@ -86,7 +84,7 @@ class DataController {
         }
 
         // Reduce the transcription content
-        transcripcion = (await reduceTranscription(transcripcion)).toString();
+        transcripcion = (reduceTranscription(transcripcion)).toString();
 
         if (!transcripcion) {
           console.log("Error al reducir el archivo");
@@ -107,9 +105,6 @@ class DataController {
         res.status(500).send("Error, API OpenAI");
         return;
       }
-
-      // Generate a PDF document based on the name
-      await genPdf(name);
 
       // Prepare all the updated data
       const allData = { ...data };
@@ -194,10 +189,15 @@ class DataController {
         page_id: id,
       });
 
+      // Extract the name from the Notion page
+      const name = element.properties.Nombre.title[0].plain_text;
+
+      const agreement = await genPdf(name);
+
       // Validates that the email has not been sent.
       if (!element.properties["Correo Enviado"].checkbox) {
         // Send the candidate agreement via email
-        await sendCandidateAgreement(element);
+        await sendCandidateAgreement(agreement, name);
         const newData = await notion.pages.update({
           page_id: id,
           properties: { "Correo Enviado": { checkbox: true } },

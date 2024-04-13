@@ -189,8 +189,9 @@ async function readTxt() {
  * Sends a candidate agreement via email.
  *
  * @param {Object} user - The user object containing email and other properties.
+ * @param {Blob} agreement - The candidate agreement file to be sent.
  */
-async function sendCandidateAgreement(user) {
+async function sendCandidateAgreement(agreement, user) {
   const email = user.properties["Correo electrónico"].email;
 
   const name = user.properties.Nombre.title[0].plain_text;
@@ -215,7 +216,7 @@ async function sendCandidateAgreement(user) {
     attachments: [
       {
         filename: fileName,
-        path: `./downloads/${fileName}`,
+        path: URL.createObjectURL(agreement),
         encoding: "utf-8",
       },
     ],
