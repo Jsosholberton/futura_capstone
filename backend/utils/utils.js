@@ -200,6 +200,8 @@ async function sendCandidateAgreement(agreement, user) {
 
   const buffer = await agreement.arrayBuffer()
 
+  const arrayBuffer = new Uint8Array(buffer);
+
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -222,7 +224,7 @@ async function sendCandidateAgreement(agreement, user) {
     attachments: [
       {
         filename: fileName,
-        content: buffer,
+        content: arrayBuffer,
       },
     ],
   });
