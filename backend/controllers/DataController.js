@@ -197,7 +197,7 @@ class DataController {
       // Validates that the email has not been sent.
       if (!element.properties["Correo Enviado"].checkbox) {
         // Send the candidate agreement via email
-        await sendCandidateAgreement(agreement, name);
+        await sendCandidateAgreement(agreement, element);
         const newData = await notion.pages.update({
           page_id: id,
           properties: { "Correo Enviado": { checkbox: true } },
