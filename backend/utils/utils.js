@@ -82,6 +82,8 @@ function formatData(data) {
   const dataArrTmp = data.split("\n");
   const dataArr = [];
 
+  console.log(data)
+
   for (data in dataArrTmp) {
     if (dataArrTmp[data] !== "") {
       dataArr.push(dataArrTmp[data]);

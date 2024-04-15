@@ -164,6 +164,8 @@ class DataController {
         temperature: 0.1,
       });
 
+      console.log(response)
+
       // Extract the response content
       const respuesta = response.choices[0].message.content;
 
