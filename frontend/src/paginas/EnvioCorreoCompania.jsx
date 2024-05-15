@@ -56,7 +56,7 @@ const EnvioCorreoCompania = () => {
         },
       };
       await axios.post(
-        `http://localhost:4000/api/companies/send-email/${id}`,
+        `https://futura-capstone-sadp.vercel.app/api/companies/send-email/${id}`,
         { text, email, contacto, name },
         config
       );
